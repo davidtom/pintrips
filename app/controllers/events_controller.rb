@@ -4,6 +4,7 @@ class EventsController < ApplicationController
   #  figure out where we want to redirect_to
 
   before_action :set_event, only: [:show, :edit, :update, :destroy]
+
   def new
     @event = Event.new
   end
@@ -15,7 +16,11 @@ class EventsController < ApplicationController
       flash[:success] = "Event was successfully created."
       redirect_to user_path(current_user)
     else
-      flash[:alert] = "Event was unable to be created, please try again."
+      if current_user == nil
+        flash[:alert] = "You must be logged in to create an event."
+      else
+        flash[:alert] = @event.errors.full_messages[0] + "  Event was unable to be created, please try again."
+      end
       render 'new'
     end
   end

@@ -1,4 +1,5 @@
 <%= form_for @event do |f| %>
+  <p><%= f.label :review %></p>
   <p><%= f.text_area :review %></p>
   <p><%= f.label :rating %>  <%= f.select :rating, (0..10) %></p>
   <p><%= f.label :date %><%= f.date_select :date, :order => [:day, :month, :year] %></p>
