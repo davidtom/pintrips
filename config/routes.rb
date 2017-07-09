@@ -4,7 +4,9 @@ Rails.application.routes.draw do
   resources :users, except:[:new]
 
   resources :friendships, except: [:index, :new, :edit, :update, :show]
+  resources :events
 
+  
   get 'login', to: 'sessions#new'
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'

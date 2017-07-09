@@ -17,6 +17,7 @@ class UsersController < ApplicationController
       #Maybe hange this path once we have a better page to redirect them to?
       redirect_to user_path(@user)
     else
+      flash[:alert] = "Unable to sign up please try again."
       render 'new'
     end
   end
@@ -31,7 +32,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    
+    @events = Event.all.select {|event| event.user == @user}
   end
 
   private

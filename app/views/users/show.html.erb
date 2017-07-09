@@ -15,3 +15,12 @@
 <% end %>
 
 <p><%= link_to "Find Friends", users_path %></p>
+
+<h3> Your Events: </h3>
+
+<% @events.each do |event| %>
+  <p><%= event.review %></p>
+  <p><%= event.rating %> stars</p>
+  <p><%= event.date %></p>
+  <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
+<% end %>
