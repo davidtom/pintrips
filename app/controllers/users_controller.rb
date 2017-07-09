@@ -14,6 +14,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:success] = "Welcome to PinTrips #{@user.user_name}!"
+      session[:user_id] = user.id
       #Maybe hange this path once we have a better page to redirect them to?
       redirect_to user_path(@user)
     else
