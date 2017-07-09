@@ -3,7 +3,7 @@
 <p><%= @user.first_name %></p>
 <p><%= @user.last_name %></p>
 
-<h3>Friends:</h3>
+<h3>My Friends:</h3>
 
 <% @user.friendships.each do |friendship| %>
   <li>
@@ -16,7 +16,14 @@
 
 <p><%= link_to "Find Friends", users_path %></p>
 
-<h3> Your Events: </h3>
+<h3>Added me:</h3>
+<% @user.inverse_friends.each do |friend| %>
+<li>
+  <%= friend.user_name %>
+</li>
+<% end %>
+
+<h3> My Events: </h3>
 
 <% @events.each do |event| %>
   <p><%= event.review %></p>
