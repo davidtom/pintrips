@@ -2,3 +2,16 @@
 <p><%= @user.email %></p>
 <p><%= @user.first_name %></p>
 <p><%= @user.last_name %></p>
+
+<h3>Friends:</h3>
+
+<% @user.friendships.each do |friendship| %>
+  <li>
+    <%=link_to friendship.friend.user_name, user_path(friendship.friend.id)%>
+    <% if current_user %>
+      (<%=link_to "remove", friendship_path(friendship.friend.id), :method => :delete %>)
+    <% end %>
+  </li>
+<% end %>
+
+<p><%= link_to "Find Friends", users_path %></p>

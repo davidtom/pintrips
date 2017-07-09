@@ -1,5 +1,6 @@
 class User < ApplicationRecord
-  has_many :friends
+  has_many :friendships
+  has_many :friends, through: :friendships
   has_many :comments
   has_many :events
   has_many :trips, through: :events
@@ -16,4 +17,9 @@ class User < ApplicationRecord
                         length: {minimum:3, maximum: 25}
 
   has_secure_password
+
+  def not(current_user)
+    self.id != current_user.id
+  end
+
 end

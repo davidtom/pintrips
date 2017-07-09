@@ -2,6 +2,10 @@ class UsersController < ApplicationController
 
   before_action :set_user, only: [:edit, :update, :show]
 
+  def index
+    @users = User.all
+  end
+
   def new
     @user = User.new
   end
@@ -9,7 +13,7 @@ class UsersController < ApplicationController
   def create
     @user = User.new(user_params)
     if @user.save
-      flash[:success] = "Welcome to PinTrips! #{@user.user_name}"
+      flash[:success] = "Welcome to PinTrips #{@user.user_name}!"
       #Maybe hange this path once we have a better page to redirect them to?
       redirect_to user_path(@user)
     else
@@ -27,8 +31,9 @@ class UsersController < ApplicationController
   end
 
   def show
-
+    
   end
+
   private
 
   def set_user
