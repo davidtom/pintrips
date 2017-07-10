@@ -66,7 +66,7 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:review, :rating, :date)
+    params.require(:event).permit(:review, :rating, :date, :type)
   end
 
   def user_match?
