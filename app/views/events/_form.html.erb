@@ -1,7 +1,7 @@
 <%= form_for @event do |f| %>
   <p><%= f.label :review %></p>
   <p><%= f.text_area :review %></p>
-  <p><%= f.label :type %> <%= f.select :type, Type.all.map { |type| [type.name,type.name]} %>
+  <p><%= f.label :type_name %> <%= f.select :type_name, Type.all.map { |type| [type.name,type.name]} %>
   <p><%= f.label :rating %>  <%= f.select :rating, (0..10) %></p>
   <p><%= f.label :date %><%= f.date_select :date, :order => [:day, :month, :year] %></p>
   <p><%= f.submit %></p>

@@ -10,8 +10,12 @@ class Event < ApplicationRecord
                      length: {minimum: 30}
   validates :rating, presence: true
 
-  def type=(type_name)
+  def type_name= (type_name)
     Type.find_or_create_by(name: type_name).events << self
+  end
+
+  def type_name
+    self.type.name
   end
 
 
