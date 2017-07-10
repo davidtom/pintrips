@@ -11,3 +11,5 @@ Type.create(name:"Nightlife")
 Type.create(name:"Restaurants")
 Type.create(name:"Outdoors/nature")
 Type.create(name:"Lodging")
+
+# User.create(first_name: "Torben", last_name: "Wooley", email: "torben@torben.com", "")
