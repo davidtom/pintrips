@@ -29,8 +29,9 @@
   <p><%= event.review %></p>
   <p><%= event.rating %> stars</p>
   <p><%= event.date %></p>
-  <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
-
+  <% if event.user == current_user %>
+    <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
+  <% end %>
 <% end %>
 <br>
 <%= link_to "Create new event", new_event_path %>
