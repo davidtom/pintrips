@@ -106,5 +106,3 @@ end
 20.times do
   Comment.create(content: Faker::RuPaul.quote, user: User.find(rand(1..99)), trip: Trip.find(rand(1..50)))
 end
-
-puts "blah"
