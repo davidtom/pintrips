@@ -3,6 +3,7 @@ Rails.application.routes.draw do
   root 'trips#index'
   get 'users/sign_up', to: 'users#new'
   resources :users, except:[:new]
+  get '/trips/friends', to: 'trips#friends'
   resources :trips
   resources :friendships, except: [:index, :new, :edit, :update, :show]
   resources :events
