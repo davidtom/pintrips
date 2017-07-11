@@ -1,5 +1,7 @@
 class CommentsController <ApplicationController
 
+  before_action :set_comment, only: [:edit, :update, :destroy]
+
   def create
     new_comment = Comment.new(comment_params)
     new_comment.user = current_user
@@ -17,29 +19,45 @@ class CommentsController <ApplicationController
   end
 
   def edit
-    @comment = Comment.find(params[:id])
+    if !user_match?
+      flash[:danger] = "You can only edit your own comments."
+      redirect_to request.referer
+    else
     #store previous page so it can be linked back to after update
     session[:return_to] ||= request.referer
+    end
   end
 
   def update
-    @comment = Comment.find(params[:id])
     @comment.update(comment_params)
+    flash[:success]= "Comment successfully updated."
     redirect_to session.delete(:return_to)
   end
 
   def destroy
-    @comment = Comment.find(params[:id])
-    @comment.destroy
-    #"reload" current page
-    redirect_to request.referer
+    if !user_match?
+      flash[:danger] = "You can only delete your own comments."
+      redirect_to request.referer
+
+    else
+      @comment.destroy
+      flash[:success]= "Comment successfully deleted."
+      redirect_to request.referer
+    end
   end
 
   private
+
+    def set_comment
+      @comment = Comment.find(params[:id])
+    end
 
     def comment_params
       params.require(:comment).permit(:content)
     end
 
+    def user_match?
+      current_user && @comment.user.is?(current_user)
+    end
 
 end

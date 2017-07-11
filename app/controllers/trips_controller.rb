@@ -34,24 +34,38 @@ class TripsController < ApplicationController
   end
 
   def edit
-    @events = @trip.events
-    @orphan_events = get_orphan_events
+    if !user_match?
+      flash[:danger] = "You can only edit your own trips."
+      redirect_to request.referer
+    else
+      @events = @trip.events
+      @orphan_events = get_orphan_events
+      #store previous page so it can be linked back to after update
+      session[:return_to] ||= request.referer
+      end
   end
 
   def update
     @trip.events = []
     if @trip.update(trip_params)
-      flash[:success]= "Trip successfully created"
+      flash[:success]= "Trip successfully updated."
+      # redirect_to session.delete(:return_to)
       redirect_to user_path(current_user)
     else
-      flash[:danger]= "Unable to update trip"
+      flash[:danger]= "Unable to update trip."
       render 'edit'
     end
   end
 
   def destroy
-    @trip.delete
-    redirect_to user_path(current_user)
+    if !user_match?
+      flash[:danger] = "You can only delete your own trips."
+      redirect_to request.referer
+    else
+      @trip.delete
+      flash[:success] = "Trip successfully deleted."
+      redirect_to request.referer
+    end
   end
 
   private
@@ -67,4 +81,9 @@ class TripsController < ApplicationController
   def get_orphan_events
     current_user.events.select { |event| event.trip_id == nil }
   end
+
+  def user_match?
+    current_user && @trip.user.is?(current_user)
+  end
+
 end
