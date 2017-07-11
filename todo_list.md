@@ -28,3 +28,15 @@
 * Copying trips into 'to do list'
 
 * Liking trips/events
+
+
+
+old code for events index view:
+
+<div class="well">
+  <h3> <%= link_to event.title, event_path(event) %> </h3>
+  <%= link_to event.user.user_name, user_path(event.user) %>
+  <p><%= event.review %></p>
+  <p><%= event.rating %></p>
+  <p><%= event.date %></p>
+</div>
