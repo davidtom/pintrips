@@ -1,5 +1,5 @@
-<h1> <%= trip.name %></h1>
-<p> By: <%= trip.user.user_name %></p>
+<a href= '<%= trip_path(trip) %>'><h1> <%= trip.name %></h1></a>
+<p> Trip by: <%= trip.user.user_name %></p>
 <% trip.events.each do |event| %>
   <div class="well">
     <h4><%= event.title %></h4>
