@@ -7,9 +7,9 @@ class Trip < ApplicationRecord
     self.events.map { |e| e.title }
   end
 
-  def event_titles=(titles)
-    events_arr = titles.map do |title|
-      Event.find_by(title: title)
+  def event_ids=(ids)
+    events_arr = ids.map do |id|
+      Event.find(id)
     end
 
     events_arr.each do |event|
