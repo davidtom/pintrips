@@ -23,6 +23,15 @@
 </li>
 <% end %>
 
+<h3> My Trips: </h3>
+
+<% @trips.each do |trip| %>
+  <%= render partial: 'trips/trip', locals: {trip: trip} %>
+<% end %>
+<p><%= link_to "Create new trip", new_trip_path %></p>
+
+<hr>
+
 <h3> My Events: </h3>
 
 <% @events.each do |event| %>
@@ -39,3 +48,4 @@
 <% end %>
 <br>
 <%= link_to "Create new event", new_event_path %>
+<br>
