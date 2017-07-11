@@ -11,7 +11,7 @@ def create
   end
   if params[:event_id]
     event_id = params[:event_id].keys[0].to_i
-    Event.find(event_id).events << new_comment
+    Event.find(event_id).comments << new_comment
     redirect_to event_path(event_id)
   end
 end
