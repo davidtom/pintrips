@@ -5,5 +5,6 @@
   <p><%= f.label :type_name %> <%= f.select :type_name, Type.all.map { |type| [type.name,type.name]} %>
   <p><%= f.label :rating %>  <%= f.select :rating, (0..10) %></p>
   <p><%= f.label :date %><%= f.date_select :date, :order => [:day, :month, :year] %></p>
+  <p><%= f.label :location_name %><%= f.text_field :location_name %></p>
   <p><%= f.submit %></p>
 <% end %>
