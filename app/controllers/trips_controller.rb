@@ -4,11 +4,22 @@ class TripsController < ApplicationController
 
   def new
     @events = current_user.events
-    @trip = trip.new
+    @trip = Trip.new
   end
 
   def create
-    byebug
+    trip = Trip.new(trip_params)
+    trip.user = current_user
+    if trip.save
+      flash[:success] = "Trip successfully created!"
+      redirect_to user_path(current_user)
+    else
+      flash[:danger] = "Unable to create trip"
+      byebug
+      @events = current_user.events
+      @trip = Trip.new
+      render 'new'
+    end
   end
 
   def index
@@ -38,6 +49,6 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:events)
+    params.require(:trip).permit(:name, event_titles:[])
   end
 end

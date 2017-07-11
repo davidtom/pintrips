@@ -11,7 +11,7 @@ class ApplicationController < ActionController::Base
   end
 
   def require_user
-    if !logged_in
+    if !logged_in?
       flash[:danger]= "You don't have permission to view that page"
       redirect_to root_path
     end
