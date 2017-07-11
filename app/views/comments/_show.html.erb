@@ -1,0 +1,6 @@
+<% comments.each do |c| %>
+<div class="well">
+<p><%= c.user.user_name %> at <%= c.created_at.to_date %></p>
+<p><%= c.content %></p>
+</div>
+<% end %>
