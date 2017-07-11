@@ -8,7 +8,8 @@ class Comment < ApplicationRecord
   def event_or_user
     if !self.trip && !self.event
       #Add error to comment.
-      self.errors << "Must have either trip or event"
+      byebug
+      errors[:base] << "Comment must be associated with either a trip or an event"
     end
   end
 
