@@ -1,9 +1,9 @@
-<a href= '<%= trip_path(trip) %>'><h1> <%= trip.name %></h1></a>
-<p> Trip by: <%= trip.user.user_name %></p>
-<% trip.events.each do |event| %>
-  <div class="well">
-    <h4><%= event.title %></h4>
-    <p><%= event.review %></p>
-    <p><%= event.rating %> stars</p>
-  </div>
-<% end %>
+<div class="jumbotron">
+  <a href= '<%= trip_path(trip) %>'><h1> <%= trip.name %></h1></a>
+  <p> Trip by: <%= trip.user.user_name %></p>
+  <% trip.events.each do |event| %>
+      <h4><%= event.title %></h4>
+      <p><%= event.review %></p>
+      <p><%= event.rating %> stars</p>
+  <% end %>
+</div>
