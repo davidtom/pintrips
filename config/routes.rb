@@ -6,7 +6,7 @@ Rails.application.routes.draw do
   resources :trips
   resources :friendships, except: [:index, :new, :edit, :update, :show]
   resources :events
-  resources :comments, only: [:create, :update, :delete]
+  resources :comments, only: [:create, :edit, :update, :destroy]
 
 
   get 'login', to: 'sessions#new'
