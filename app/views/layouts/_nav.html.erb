@@ -1,29 +1,43 @@
-<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
-  <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <a class="navbar-brand" href="#">Navbar</a>
-  <div class="collapse navbar-collapse" id="navbarNavDropdown">
-    <ul class="navbar-nav">
-      <li class="nav-item active">
-        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Features</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#">Pricing</a>
-      </li>
-      <li class="nav-item dropdown">
-        <a class="nav-link dropdown-toggle" href="http://example.com" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown link
+<!--Navbar-->
+<nav class="navbar navbar-md navbar-dark bg-primary">
+    <div class="container">
+      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+      </button>
+        <a class="navbar-brand" href="#">
+          <img src="https://cdn.pixabay.com/photo/2016/03/22/04/23/map-1272165_1280.png" width="45" height="30" class="d-inline-block align-top" alt="">
+          <strong>Pintrips</strong>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-          <a class="dropdown-item" href="#">Action</a>
-          <a class="dropdown-item" href="#">Another action</a>
-          <a class="dropdown-item" href="#">Something else here</a>
+        <div class="collapse navbar-collapse" id="navbarNav1">
+          <ul class="navbar-nav mr-auto">
+              <li class="nav-item">
+                <%= link_to "All Trips", trips_path, class: 'nav-link' %>
+              </li>
+              <li class="nav-item">
+                <%= link_to "All Events", events_path, class: 'nav-link' %>
+              </li>
+              <% if logged_in? %>
+                <li class="nav-item">
+                  <%= link_to "Friends Trips", trips_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "View Profile", user_path(current_user.id), class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Edit Profile", edit_user_path(current_user.id), class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                  <%= link_to "Logout", logout_path, method: :delete, class: 'nav-link' %>
+                </li>
+              <% else %>
+                <li class="nav-item">
+                    <%= link_to "Log In", login_path, class: 'nav-link' %>
+                </li>
+                <li class="nav-item">
+                    <%= link_to "Sign Up", users_sign_up_path, class: 'nav-link' %>
+                </li>
+              <% end %>
+          </ul>
         </div>
-      </li>
-    </ul>
-  </div>
+    </div>
 </nav>
