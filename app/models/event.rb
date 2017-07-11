@@ -5,6 +5,7 @@ class Event < ApplicationRecord
   belongs_to :type
   has_many :comments
   has_many :images
+  belongs_to :trip, optional: true
 
   validates :review, presence: true,
                      length: {minimum: 30}
