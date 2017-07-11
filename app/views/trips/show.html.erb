@@ -1,1 +1,2 @@
 <%= render partial: 'trip', locals: {trip: @trip} %>
+<%= render partial: '/comments/new', locals: {comment: @comment, type: "trip", id: @trip.id} %>

@@ -1,0 +1,10 @@
+<%= form_for comment do |f| %>
+<p><%= f.label "Enter comment" %></p>
+<p><%= f.text_area :content %></p>
+  <% if type == "trip" %>
+    <%= hidden_field(:trip_id, id) %>
+  <% elsif type == "event" %>
+    <%= hidden_field(:event_id, id) %>
+  <% end %>
+<%= f.submit class: "btn btn-primary" %>
+<% end %>

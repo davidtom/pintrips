@@ -1,5 +1,8 @@
 <% @events.each do |event| %>
-  <p><%= event.review %></p>
-  <p><%= event.rating %></p>
-  <p><%= event.date %></p>
+  <div class="well">
+    <h3><%= event.title %></h3>
+    <p><%= event.review %></p>
+    <p><%= event.rating %></p>
+    <p><%= event.date %></p>
+  </div>
 <% end %>
