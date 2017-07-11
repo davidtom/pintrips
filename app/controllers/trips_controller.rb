@@ -29,6 +29,7 @@ class TripsController < ApplicationController
 
   def show
     @comment = Comment.new
+    @comments = @trip.comments
 
   end
 

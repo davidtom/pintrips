@@ -3,4 +3,7 @@
 <p><%= @event.rating %></p>
 <p><%= @event.date %></p>
 <p><%= link_to "Edit", edit_event_path(@event) %> | <%= link_to "Delete", event_path(@event), method: :delete %></p>
-<%= render partial: '/comments/new', locals: {comment: @comment, event_id: @event.id} %>
+<hr>
+<%= render partial: '/comments/new', locals: {comment: @comment, type: "event", id: @event.id} %>
+<br>
+<%= render partial: '/comments/show', locals: {comments: @comments} %>
