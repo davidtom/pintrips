@@ -7,3 +7,24 @@
 
 * set up friendships, including ability to view, add, and remove
 * add flash messages to top of page and add links for current_user to log out or view profile
+
+
+* build out rest of trips (show, index, and finish form)
+
+* potentially make a follow and private user system
+
+* Comments
+
+* paritals for show pages where the get reused
+
+* Displaying trips and events on users page
+
+* Updating adding events to trips should only show 'orphaned events
+* Make page that shows trips for all friends of the logged in user
+
+* add link to reciprocate friendships
+* if you are looking at a users page who is NOT your friend display a link to add them as friendships
+
+* Copying trips into 'to do list'
+
+* Liking trips/events
