@@ -33,7 +33,8 @@ class UsersController < ApplicationController
   end
 
   def show
-    @events = Event.all.select {|event| event.user == @user}
+    @events = Event.all.select {|event| event.user == @user }
+    @trips = Trip.all.select { |trip| trip.user == @user }
   end
 
   private
