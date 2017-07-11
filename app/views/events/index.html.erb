@@ -1,6 +1,6 @@
 <% @events.each do |event| %>
   <div class="well">
-    <h3><%= event.title %></h3>
+    <a href='<%= event_path(event) %>'><h3><%= event.title %></h3></a>
     <p><%= event.review %></p>
     <p><%= event.rating %></p>
     <p><%= event.date %></p>
