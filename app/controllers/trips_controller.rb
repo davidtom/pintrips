@@ -8,7 +8,7 @@ class TripsController < ApplicationController
   end
 
   def create
-
+    byebug
   end
 
   def index

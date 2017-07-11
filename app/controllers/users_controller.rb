@@ -7,7 +7,6 @@ class UsersController < ApplicationController
   end
 
   def new
-    byebug
     @user = User.new
   end
 

@@ -15,7 +15,7 @@ class Event < ApplicationRecord
   end
 
   def type_name
-    self.type.name
+    self.type.name if type
   end
 
 
