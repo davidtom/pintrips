@@ -1,0 +1,11 @@
+<div>
+  <h3> <%= link_to event.title, event_path(event) %> </h3>
+  <%= link_to event.user.user_name, user_path(event.user) %>
+  <p><%= event.review %></p>
+  <p><%= event.rating %></p>
+  <p><%= event.type.name %></p>
+  <p><%= event.date %></p>
+  <% if event.user == current_user %>
+    <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
+  <% end %>
+</div>

@@ -15,16 +15,7 @@
     <center><h3> Standalone Events: </h3></center>
 
     <% @events.each do |event| %>
-      <div class="well">
-        <a href='<%= event_path(event) %>'><h4><%= event.title %></h4></a>
-        <p><%= event.review %></p>
-        <p><%= event.rating %> stars</p>
-        <p><%= event.type.name %></p>
-        <p><%= event.date %></p>
-        <% if event.user == current_user %>
-          <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
-        <% end %>
-      </div>
+      <%= render partial: "/events/event", locals: {event: event} %>
     <% end %>
 
     <br>

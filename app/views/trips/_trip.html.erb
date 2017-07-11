@@ -1,9 +1,14 @@
 <div class="jumbotron">
-  <a href= '<%= trip_path(trip) %>'><h1> <%= trip.name %></h1></a>
-  <p> Trip by: <%= trip.user.user_name %></p>
+  <h1><%= link_to trip.name, trip_path(trip) %></h1>
+  <p> Trip by: <%= link_to trip.user.user_name, user_path(trip.user) %></p>
   <% trip.events.each do |event| %>
       <h4><%= event.title %></h4>
       <p><%= event.review %></p>
       <p><%= event.rating %> stars</p>
+  <% end %>
+  <% if trip.user.is?(current_user) %>
+    <span><%= link_to "Edit", edit_trip_path(trip)%></span>
+    <span> | </span>
+    <span><%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Comment?' } %></span>
   <% end %>
 </div>

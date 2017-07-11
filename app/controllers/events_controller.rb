@@ -37,24 +37,28 @@ class EventsController < ApplicationController
 
   def edit
     if !user_match?
-      flash[:alert]= "You can only edit your own events."
-      redirect_to user_path(current_user)
+      flash[:danger]= "You can only edit your own events."
+      redirect_to request.referer
+    else
+      #store previous page so it can be linked back to after update
+      session[:return_to] ||= request.referer
     end
   end
 
   def update
     @event.update(event_params)
-    redirect_to user_path(current_user)
+    flash[:success]= "Event successfully updated."
+    redirect_to session.delete(:return_to)
   end
 
   def destroy
     if !user_match?
-      flash[:alert]= "You can only delete your own events."
-      redirect_to user_path(current_user)
+      flash[:danger]= "You can only delete your own events."
+      redirect_to request.referer
 
     else
       @event.delete
-      flash[:alert]= "Event was successfully deleted."
+      flash[:success]= "Event was successfully deleted."
       redirect_to user_path(current_user)
     end
 
@@ -72,6 +76,6 @@ class EventsController < ApplicationController
   end
 
   def user_match?
-    current_user && current_user.id == @event.user_id
+    current_user && @event.user.is?(current_user)
   end
 end

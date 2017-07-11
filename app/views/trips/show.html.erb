@@ -1,5 +1,5 @@
 <%= render partial: 'trip', locals: {trip: @trip} %>
+<p><%= link_to "Back to all Trips", trips_path %></p>
 <hr>
 <p><%= render partial: '/comments/new', locals: {comment: @comment, type: "trip", id: @trip.id} %></p>
-<p><%= link_to "Back to all Trips", trips_path %></p>
 <%= render partial: '/comments/show', locals: {comments: @comments} %>
