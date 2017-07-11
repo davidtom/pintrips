@@ -1,0 +1,5 @@
+<%= form_for @trip do |f| %>
+  <% @events.each do |event| %>
+    <p><%= f.label event.title %><%= f.check_box :event_titles, {:multiple => true}, event.title, nil %></p>
+  <% end %>
+<% end %>
