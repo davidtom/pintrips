@@ -1,6 +1,6 @@
 class TripsController < ApplicationController
   before_action :set_trip, only: [:show, :edit, :update, :destroy]
-  before_action :require_user, only:[:new, :edit, :update]
+  before_action :require_user, only:[:new, :edit, :update, :friends]
 
   def new
     @events  = [] # DOnt ask.
@@ -52,6 +52,10 @@ class TripsController < ApplicationController
   def destroy
     @trip.delete
     redirect_to user_path(current_user)
+  end
+
+  def friends
+    @trips = Trip.all.select { |trip| current_user.friends.include?(trip.user) }
   end
 
   private

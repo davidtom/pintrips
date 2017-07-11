@@ -56,6 +56,9 @@
     <% @user.inverse_friends.each do |friend| %>
     <li>
       <%= friend.user_name %>
+      <% if current_user == @user && !Friendship.between(current_user, friend) %>
+        (<%= link_to "add friend", friendships_path(friend_id: friend), method: :post%>)
+      <% end %>
     </li>
     <% end %>
   </div>
