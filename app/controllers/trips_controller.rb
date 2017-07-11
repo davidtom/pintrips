@@ -1,9 +1,10 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update]
+  before_action :set_trip, only: [:show, :edit, :update, :destroy]
   before_action :require_user, only:[:new, :edit, :update]
 
   def new
-    @events = current_user.events.select { |event| event.trip_id == nil }
+    @events  = [] # DOnt ask.
+    @orphan_events = get_orphan_events
     @trip = Trip.new
   end
 
@@ -32,6 +33,7 @@ class TripsController < ApplicationController
 
   def edit
     @events = @trip.events
+    @orphan_events = get_orphan_events
   end
 
   def update
@@ -40,12 +42,14 @@ class TripsController < ApplicationController
       flash[:success]= "Trip successfully created"
       redirect_to user_path(current_user)
     else
-
+      flash[:danger]= "Unable to update trip"
+      render 'edit'
     end
   end
 
   def destroy
-
+    @trip.delete
+    redirect_to user_path(current_user)
   end
 
   private
@@ -56,5 +60,9 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:name, event_ids:[])
+  end
+
+  def get_orphan_events
+    current_user.events.select { |event| event.trip_id == nil }
   end
 end

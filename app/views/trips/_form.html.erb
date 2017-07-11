@@ -5,5 +5,9 @@
   <% @events.each do |event| %>
     <p><%= f.label event.title %><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %></p>
   <% end %>
+
+  <% @orphan_events.each do |event| %>
+    <p><%= f.label event.title %><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %></p>
+  <% end %>
   <p><%= f.submit %></p>
 <% end %>
