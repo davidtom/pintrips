@@ -17,6 +17,7 @@
     <% @events.each do |event| %>
       <div class="well">
         <a href='<%= event_path(event) %>'><h4><%= event.title %></h4></a>
+        <%= link_to event.user.user_name, user_path(event.user) %>
         <p><%= event.review %></p>
         <p><%= event.rating %> stars</p>
         <p><%= event.type.name %></p>

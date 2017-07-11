@@ -1,6 +1,6 @@
 <div class="jumbotron">
   <a href= '<%= trip_path(trip) %>'><h1> <%= trip.name %></h1></a>
-  <p> Trip by: <%= trip.user.user_name %></p>
+  <p> Trip by: <%= link_to trip.user.user_name, user_path(trip.user) %></p>
   <% trip.events.each do |event| %>
       <h4><%= event.title %></h4>
       <p><%= event.review %></p>
