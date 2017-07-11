@@ -3,7 +3,8 @@ class TripsController < ApplicationController
   before_action :require_user, only:[:new, :edit, :update]
 
   def new
-    
+    @events = current_user.events
+    @trip = trip.new
   end
 
   def create
