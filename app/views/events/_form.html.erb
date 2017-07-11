@@ -1,4 +1,5 @@
 <%= form_for @event do |f| %>
+  <p><%= f.label :title %>  <%= f.text_field :title %></p>
   <p><%= f.label :review %></p>
   <p><%= f.text_area :review %></p>
   <p><%= f.label :type_name %> <%= f.select :type_name, Type.all.map { |type| [type.name,type.name]} %>
