@@ -20,8 +20,9 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  def not(current_user)
-    self.id != current_user.id
+  def is?(object)
+    # Used primarily to see if the user is the current_user on view pages
+    self == object
   end
 
 end
