@@ -21,7 +21,10 @@
     </br>
       <!--  Flash messages -->
       <% flash.each do |name, msg|%>
-        <%= content_tag :div, msg, class: "flash_message"  %>
+        <div class = "alert alert-<%= name %> alert-dismissable">
+          <p> <%=  msg  %></p>
+        </div>
+      </br>
       <% end %>
       <!-- Log out and View Profile Links TODO: put these in a div or divs for css later-->
       <!-- <% if logged_in?%>
