@@ -17,9 +17,9 @@ class EventsController < ApplicationController
       redirect_to user_path(current_user)
     else
       if current_user == nil
-        flash[:alert] = "You must be logged in to create an event."
+        flash[:danger] = "You must be logged in to create an event."
       else
-        flash[:alert] = @event.errors.full_messages[0] + "  Event was unable to be created, please try again."
+        flash[:danger] = @event.errors.full_messages[0] + "  Event was unable to be created, please try again."
       end
       render 'new'
     end

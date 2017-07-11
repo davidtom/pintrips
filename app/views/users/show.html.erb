@@ -1,51 +1,60 @@
-<h1><%= @user.user_name %></h1>
-<p><%= @user.email %></p>
-<p><%= @user.first_name %></p>
-<p><%= @user.last_name %></p>
+<div class="row">
+  <div class="col-md-8">
+    <center><h3> My Trips </h3></center>
 
-<h3>My Friends:</h3>
-
-<% @user.friendships.each do |friendship| %>
-  <li>
-    <%=link_to friendship.friend.user_name, user_path(friendship.friend.id)%>
-    <% if current_user %>
-      (<%=link_to "remove", friendship_path(friendship.friend.id), :method => :delete %>)
+    <% @trips.each do |trip| %>
+      <div class="jumbotron">
+        <%= render partial: 'trips/trip', locals: {trip: trip} %>
+      </div>
     <% end %>
-  </li>
-<% end %>
 
-<p><%= link_to "Find Friends", users_path %></p>
+    <p><%= link_to "Create new trip", new_trip_path %></p>
 
-<h3>Added me:</h3>
-<% @user.inverse_friends.each do |friend| %>
-<li>
-  <%= friend.user_name %>
-</li>
-<% end %>
+    <hr>
 
-<h3> My Trips: </h3>
+    <center><h3> Standalone Events: </h3></center>
 
-<% @trips.each do |trip| %>
-  <%= render partial: 'trips/trip', locals: {trip: trip} %>
-<% end %>
-<p><%= link_to "Create new trip", new_trip_path %></p>
+    <% @events.each do |event| %>
+      <div class="well">
+        <a href='<%= event_path(event) %>'><h4><%= event.title %></h4></a>
+        <p><%= event.review %></p>
+        <p><%= event.rating %> stars</p>
+        <p><%= event.type.name %></p>
+        <p><%= event.date %></p>
+        <% if event.user == current_user %>
+          <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
+        <% end %>
+      </div>
+    <% end %>
 
-<hr>
+    <br>
+    <%= link_to "Create new event", new_event_path %>
+    <br>
+  </div>
+  <div class="col-md-4">
+    <h1><%= @user.user_name %></h1>
+    <p><%= @user.email %></p>
+    <p><%= @user.first_name %></p>
+    <p><%= @user.last_name %></p>
 
-<h3> My Events: </h3>
+    <h3>My Friends:</h3>
 
-<% @events.each do |event| %>
-<div class="well">
-  <a href='<%= event_path(event) %>'><h4><%= event.title %></h4></a>
-  <p><%= event.review %></p>
-  <p><%= event.rating %> stars</p>
-  <p><%= event.type.name %></p>
-  <p><%= event.date %></p>
-  <% if event.user == current_user %>
-    <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
-  <% end %>
+    <% @user.friendships.each do |friendship| %>
+      <li>
+        <%=link_to friendship.friend.user_name, user_path(friendship.friend.id)%>
+        <% if current_user %>
+          (<%=link_to "remove", friendship_path(friendship.friend.id), :method => :delete %>)
+        <% end %>
+      </li>
+    <% end %>
+
+    <p><%= link_to "Find Friends", users_path %></p>
+
+    <h3>Added me:</h3>
+    <% @user.inverse_friends.each do |friend| %>
+    <li>
+      <%= friend.user_name %>
+    </li>
+    <% end %>
+  </div>
 </div>
-<% end %>
-<br>
-<%= link_to "Create new event", new_event_path %>
-<br>
