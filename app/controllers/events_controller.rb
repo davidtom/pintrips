@@ -36,7 +36,7 @@ class EventsController < ApplicationController
 
   def show
     @comment = Comment.new
-    @comments = @event.comments
+    @comments = @event.comments.order('created_at desc')
 
   end
 

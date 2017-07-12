@@ -26,9 +26,11 @@
   </div>
   <div class="col-md-4">
     <h1><%= @user.user_name %></h1>
+    <% if current_user != @user && !Friendship.between(current_user, @user) %>
+      (<%= link_to "add friend", friendships_path(friend_id: @user), method: :post%>)
+    <% end %>
     <p><%= @user.email %></p>
-    <p><%= @user.first_name %></p>
-    <p><%= @user.last_name %></p>
+    <p><%= @user.first_name %> <%= @user.last_name %></p>
 
     <h3>My Friends:</h3>
 

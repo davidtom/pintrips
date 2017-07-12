@@ -3,7 +3,7 @@ class TripsController < ApplicationController
   before_action :require_user, only:[:new, :edit, :update, :friends]
 
   def new
-    @events  = [] # DOnt ask.
+    @events  = [] # Dont ask.
     @orphan_events = get_orphan_events
     @trip = Trip.new
   end
@@ -70,6 +70,9 @@ class TripsController < ApplicationController
 
   def friends
     @trips = Trip.all.select { |trip| current_user.friends.include?(trip.user) }
+    if @trips.size == 0 || !@trips
+      flash[:info]= "Your friends have no trips yet. Go on an adventure together!"
+    end
   end
 
   private
