@@ -1,7 +1,7 @@
 <div class="jumbotron">
   <h1><%= link_to trip.name, trip_path(trip) %></h1>
   <p> Trip by: <%= link_to trip.user.user_name, user_path(trip.user) %></p>
-  <p><%= image_tag featured_image_url %></p>
+  <p><%= image_tag trip.featured_image_url, class: "img-fluid" %></p>
   <% trip.events.each do |event| %>
       <h4><%= event.title %></h4>
       <p><%= event.review %></p>
