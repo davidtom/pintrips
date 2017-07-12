@@ -15,6 +15,7 @@ class Trip < ApplicationRecord
   has_many :events
   has_many :comments
   belongs_to :user
+  before_destroy :clear_events
 
   def event_titles
     self.events.map { |e| e.title }
@@ -27,6 +28,14 @@ class Trip < ApplicationRecord
 
     events_arr.each do |event|
       self.events << event
+    end
+  end
+
+  private
+
+  def clear_events
+    self.events.each do |event|
+      event.destroy
     end
   end
 end

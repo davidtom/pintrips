@@ -62,7 +62,7 @@ class TripsController < ApplicationController
       flash[:danger] = "You can only delete your own trips."
       redirect_to request.referer
     else
-      @trip.delete
+      @trip.destroy
       flash[:success] = "Trip successfully deleted."
       redirect_to request.referer
     end
