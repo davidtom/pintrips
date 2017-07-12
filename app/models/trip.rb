@@ -1,3 +1,16 @@
+# == Schema Information
+#
+# Table name: trips
+#
+#  id         :integer          not null, primary key
+#  name       :string
+#  start_date :datetime
+#  end_date   :datetime
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  user_id    :integer
+#
+
 class Trip < ApplicationRecord
   has_many :events
   has_many :comments

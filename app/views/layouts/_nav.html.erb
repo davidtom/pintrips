@@ -1,43 +1,32 @@
 <!--Navbar-->
 <nav class="navbar navbar-md navbar-dark bg-primary">
-    <div class="container">
-      <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav1" aria-controls="navbarNav1" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-      </button>
-        <a class="navbar-brand" href="#">
-          <img src="https://cdn4.iconfinder.com/data/icons/flatified/512/map.png" width="30" height="30" class="d-inline-block align-top" alt="">
-          <strong>Pintrips</strong>
-        </a>
-        <div class="collapse navbar-collapse" id="navbarNav1">
-          <ul class="navbar-nav mr-auto">
-              <li class="nav-item">
-                <%= link_to "All Trips", trips_path, class: 'nav-link' %>
-              </li>
-              <li class="nav-item">
-                <%= link_to "All Events", events_path, class: 'nav-link' %>
-              </li>
-              <% if logged_in? %>
-                <li class="nav-item">
-                  <%= link_to "Friends Trips", trips_friends_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "View Profile", user_path(current_user.id), class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Edit Profile", edit_user_path(current_user.id), class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                  <%= link_to "Logout", logout_path, method: :delete, class: 'nav-link' %>
-                </li>
-              <% else %>
-                <li class="nav-item">
-                    <%= link_to "Log In", login_path, class: 'nav-link' %>
-                </li>
-                <li class="nav-item">
-                    <%= link_to "Sign Up", users_sign_up_path, class: 'nav-link' %>
-                </li>
-              <% end %>
-          </ul>
-        </div>
-    </div>
+  <div class="container">
+    <% if logged_in? %>
+      <a class="nav-link dropdown-toggle" href="<%= user_path(current_user) %>" id="navbarDropdownMenuLink" style="color: #ffffff" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        <%= "#{current_user.user_name}" %>
+      </a>
+      <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+        <%= link_to "View Profile", user_path(current_user.id), class: 'dropdown-item' %>
+        <%= link_to "Edit Profile", edit_user_path(current_user.id), class: 'dropdown-item' %>
+        <%= link_to "Logout", logout_path, method: :delete, class: 'dropdown-item' %>
+      </div>
+      <%= link_to "Friends Trips", trips_friends_path, class: 'nav-link', style: 'color: #ffffff;' %>
+    <% else %>
+      <%= link_to "Log In", login_path, class: 'nav-link', style: 'color: #ffffff;' %>
+      <%= link_to "Sign Up", users_sign_up_path, class: 'nav-link', style: 'color: #ffffff;' %>
+    <% end %>
+    <%= link_to "All Trips", trips_path, style: 'color: #ffffff;' %>
+    <%= link_to "All Events", events_path, class: 'nav-link', style: 'color: #ffffff;' %>
+    <% if logged_in? %>
+      <a class="navbar-brand" href="/users/<%= current_user.id %>">
+        <img src="https://cdn4.iconfinder.com/data/icons/flatified/512/map.png" width="30" height="30" class="d-inline-block align-top" alt="">
+        <strong>Pintrips</strong>
+      </a>
+    <% else %>
+    <a class="navbar-brand" href="/trips">
+      <img src="https://cdn4.iconfinder.com/data/icons/flatified/512/map.png" width="30" height="30" class="d-inline-block align-top" alt="">
+      <strong>Pintrips</strong>
+    </a>
+    <% end %>
+  </div>
 </nav>

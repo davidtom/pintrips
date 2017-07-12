@@ -41,6 +41,10 @@ group :development, :test do
   # Adds support for Capybara system testing and selenium driver
   gem 'capybara', '~> 2.13'
   gem 'selenium-webdriver'
+  # Add better error page for Rails and other Rack apps
+  gem "better_errors"
+  # Retrieve the binding of a method's caller. Can also retrieve bindings even further up the stack
+  gem "binding_of_caller"
 end
 
 group :development do
