@@ -25,6 +25,7 @@ class TripsController < ApplicationController
 
   def index
     @trips = Trip.all.select { |trip| trip.events.any? }
+    @trips = Kaminari.paginate_array(@trips).page(params[:page]).per(10)
   end
 
   def show
