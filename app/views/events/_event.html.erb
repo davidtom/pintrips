@@ -9,6 +9,14 @@
   <p><%= event.type.name %></p>
   <p><%= event.date %></p>
   <% if event.user == current_user %>
+    <!--  if event not on wish list show edit and delete links -->
+    <% if !event.on_wish_list %>
     <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete, data: { confirm: 'Delete Event?' } %></p>
+    <!--  if event  on wish list show edit or mark complete and delete links -->
+    <% else %>
+    <p><%= link_to "Edit or Mark Complete", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete, data: { confirm: 'Delete Event?' } %></p>
+    <% end %>
+  <% else %>
+      <p><%= link_to "Add to Wishlist", copy_event_path(event), method: :post %></p>
   <% end %>
 </div>
