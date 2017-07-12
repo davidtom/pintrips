@@ -6,6 +6,6 @@
   <p><%= event.type.name %></p>
   <p><%= event.date %></p>
   <% if event.user == current_user %>
-    <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete %></p>
+    <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete, data: { confirm: 'Delete Event?' } %></p>
   <% end %>
 </div>
