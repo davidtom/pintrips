@@ -45,4 +45,8 @@ class Event < ApplicationRecord
     self.location = Location.find_or_create_by(name: name)
   end
 
+  def is_orphan?
+    self.trip_id == nil
+  end
+
 end
