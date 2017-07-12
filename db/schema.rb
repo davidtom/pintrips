@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712141432) do
+ActiveRecord::Schema.define(version: 20170712180239) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -57,6 +57,7 @@ ActiveRecord::Schema.define(version: 20170712141432) do
     t.string "title"
     t.text "caption"
     t.integer "trip_id"
+    t.boolean "featured"
   end
 
   create_table "locations", force: :cascade do |t|
@@ -73,7 +74,6 @@ ActiveRecord::Schema.define(version: 20170712141432) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "user_id"
-    t.integer "featured_image_id"
   end
 
   create_table "types", force: :cascade do |t|

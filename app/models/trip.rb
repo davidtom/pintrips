@@ -42,13 +42,21 @@ class Trip < ApplicationRecord
     end
   end
 
+  def featured_image
+    self.images.find do |image|
+      image.featured == true
+    end
+  end
+
   def featured_image_url
-    if self.featured_image
-      return self.featured_image.url
+    if featured_image
+      return featured_image.url
     else
       return ""
     end
   end
+
+
 
 
 end
