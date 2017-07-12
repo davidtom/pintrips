@@ -16,6 +16,11 @@ class Trip < ApplicationRecord
   has_many :comments
   belongs_to :user
 
+  def self.all_with_events
+    # Find all events that are associated with a trip (ie have a trip_id)
+    Event.where("trip_id IS NOT NULL").ids
+  end
+
   def event_titles
     self.events.map { |e| e.title }
   end
