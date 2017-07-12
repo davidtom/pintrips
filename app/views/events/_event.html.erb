@@ -1,6 +1,9 @@
 <div>
   <h3> <%= link_to event.title, event_path(event) %> </h3>
   <%= link_to event.user.user_name, user_path(event.user) %>
+  <% event.images.each do |img| %>
+  <%= image_tag img.url, alt: img.caption %>
+  <% end %>
   <p><%= event.review %></p>
   <p><%= event.rating %></p>
   <p><%= event.type.name %></p>

@@ -19,6 +19,7 @@ class Trip < ApplicationRecord
   belongs_to :featured_image, class_name: "Image"  #Has_one would make more sense gramatically, but I had to use belongs_to here because I want the foreign key to be on the Trip table, not the Image table.
 
   before_save :check_featured_image
+  before_destroy :clear_events
 
   def check_featured_image # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
     if self.featured_image
@@ -59,4 +60,11 @@ class Trip < ApplicationRecord
 
 
 
+  private
+
+  def clear_events
+    self.events.each do |event|
+      event.destroy
+    end
+  end
 end
