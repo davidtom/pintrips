@@ -4,7 +4,7 @@
 
     <% @trips.each do |trip| %>
       <div class="jumbotron">
-        <%= render partial: 'trips/trip', locals: {trip: trip, featured_image_url: trip.featured_image.url} %>
+        <%= render partial: 'trips/trip', locals: {trip: trip, featured_image_url: trip.featured_image_url} %>
       </div>
     <% end %>
     <% if current_user && current_user == @user %>

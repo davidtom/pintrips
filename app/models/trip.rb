@@ -41,4 +41,14 @@ class Trip < ApplicationRecord
       self.events << event
     end
   end
+
+  def featured_image_url
+    if self.featured_image
+      return self.featured_image.url
+    else
+      return ""
+    end
+  end
+
+
 end
