@@ -25,7 +25,8 @@ class TripsController < ApplicationController
   end
 
   def index
-    @trips = Trip.all.select { |trip| trip.events.any? }
+    # @trips = Trip.all.select { |trip| trip.events.any? }
+    @trips = Trip.all_with_events
   end
 
   def show

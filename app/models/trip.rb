@@ -17,8 +17,10 @@ class Trip < ApplicationRecord
   belongs_to :user
 
   def self.all_with_events
-    # Find all events that are associated with a trip (ie have a trip_id)
-    Event.where("trip_id IS NOT NULL").ids
+    # Store trip_ids from all Events that have one (!= nil)
+    trip_ids = Event.where.not(trip_id: nil).pluck(:trip_id)
+    # Find all of those trips from Trips table
+    Trip.where(id: trip_ids)
   end
 
   def event_titles
