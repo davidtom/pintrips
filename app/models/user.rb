@@ -39,4 +39,12 @@ class User < ApplicationRecord
     self == object
   end
 
+  def orphan_events
+    self.events.select {|event| event.is_orphan?}
+  end
+
+  def friend_trips
+    self.friends.collect {|friend| friend.trips}.flatten
+  end
+
 end
