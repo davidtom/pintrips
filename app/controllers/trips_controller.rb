@@ -10,7 +10,6 @@ class TripsController < ApplicationController
 
   def create
     trip = Trip.new(trip_params)
-    byebug
     current_user.trips << trip
     if trip.save
       flash[:success] = "Trip successfully created!"
