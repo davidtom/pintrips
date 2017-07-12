@@ -7,6 +7,10 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    #store previous page so it can be linked back to after create
+    ## removed ||= here because adding an event when editing a trip was returning
+    ## back to user show page, not the edit trip form
+    session[:return_to] = request.referer
   end
 
   def create
@@ -14,7 +18,8 @@ class EventsController < ApplicationController
     @event.user = current_user
     if @event.save
       flash[:success] = "Event was successfully created."
-      redirect_to user_path(current_user)
+      # redirect_to user_path(current_user)
+      redirect_to session.delete(:return_to)
     else
       if current_user == nil
         flash[:danger] = "You must be logged in to create an event."
@@ -41,7 +46,8 @@ class EventsController < ApplicationController
       redirect_to request.referer
     else
       #store previous page so it can be linked back to after update
-      session[:return_to] ||= request.referer
+      ## removed ||= here because updating an event was sending back to edit event form
+      session[:return_to] = request.referer
     end
   end
 

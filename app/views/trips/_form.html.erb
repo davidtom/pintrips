@@ -1,5 +1,4 @@
 <%= form_for @trip do |f| %>
-  <h2> Make a Trip </h2>
   <p><%= f.label :name %>  <%= f.text_field :name %></p>
   <h3> My Events </h3>
   <% @events.each do |event| %>
@@ -9,5 +8,7 @@
   <% @orphan_events.each do |event| %>
     <p><%= f.label event.title %><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %></p>
   <% end %>
+  <%= link_to "Create New Event", new_event_path %>
+  <hr>
   <p><%= f.submit %></p>
 <% end %>
