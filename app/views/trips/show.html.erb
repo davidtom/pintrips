@@ -1,4 +1,4 @@
-<%= render partial: 'trip', locals: {trip: @trip} %>
+<%= render partial: 'trip', locals: {trip: @trip, featured_image_url: @featured_image_url} %>
 <p><%= link_to "Back to all Trips", trips_path %></p>
 <hr>
 <p><%= render partial: '/comments/new', locals: {comment: @comment, type: "trip", id: @trip.id} %></p>

@@ -30,6 +30,7 @@ class TripsController < ApplicationController
   def show
     @comment = Comment.new
     @comments = @trip.comments
+    @featured_image_url = @trip.featured_image.url
 
   end
 

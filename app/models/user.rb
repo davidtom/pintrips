@@ -7,7 +7,7 @@ class User < ApplicationRecord
   has_many :events
   has_many :trips, through: :events
   has_many :locations, through: :events
-  has_many :images, through: :events
+  has_many :images
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
