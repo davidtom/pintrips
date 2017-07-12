@@ -14,7 +14,7 @@
 
     <center><h3> Standalone Events: </h3></center>
 
-    <% @events.each do |event| %>
+    <% @orphan_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
     <% end %>
 
@@ -23,6 +23,12 @@
       <%= link_to "Create new event", new_event_path %>
     <% end %>
     <br>
+    <!--  Events Wish List -->
+    <center><h3> Wish List: </h3></center>
+    <% @wish_list_events.each do |event| %>
+      <%= render partial: "/events/event", locals: {event: event} %>
+    <% end %>
+
   </div>
   <div class="col-md-4">
     <h1><%= @user.user_name %></h1>

@@ -54,8 +54,9 @@ class TripsController < ApplicationController
       # redirect_to session.delete(:return_to)
       redirect_to user_path(current_user)
     else
-      flash[:danger]= "Unable to update trip."
-      render 'edit'
+      # flash[:danger]= "Unable to update trip."
+      flash[:danger]= @trip.errors.full_messages[0]
+      redirect_to request.referer
     end
   end
 

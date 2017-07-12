@@ -21,8 +21,11 @@ jeff = User.create(user_name: "jeffkatzy", first_name: "Jeffrey", last_name: "Ka
 bk = Trip.create(name: "Bangkok", start_date: "07/07/2017", end_date: "07/09/2017", user: User.find_by(user_name: "david_not_dave"))
 
 im1 = Image.create(title: 'Bangkok_1', url: 'http://static.asiawebdirect.com/m/bangkok/portals/bangkok-com/shared/teasersL/TOP10/top-10-short-things-to-do-in-bangkok/teaserMultiLarge/imageHilight/teaser.jpeg.jpg', user_id: 3)
-bk.featured_image = im1
-bk.save
+
+
+im1.featured = true
+im1.trip = bk
+im1.save
 
 Location.create(name: "Bangkok", coordinates: "Thailand")
 Location.create(name: "Lower East Side", coordinates: "East Broadway")

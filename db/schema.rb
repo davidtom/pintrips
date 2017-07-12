@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712180239) do
+ActiveRecord::Schema.define(version: 20170712191300) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -32,6 +32,7 @@ ActiveRecord::Schema.define(version: 20170712180239) do
     t.integer "location_id"
     t.integer "type_id"
     t.string "title"
+    t.boolean "on_wish_list", default: false
   end
 
   create_table "friends", force: :cascade do |t|

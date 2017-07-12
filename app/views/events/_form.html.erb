@@ -6,5 +6,6 @@
   <p><%= f.label :rating %>  <%= f.select :rating, (0..10) %></p>
   <p><%= f.label :date %><%= f.date_select :date, :order => [:day, :month, :year] %></p>
   <p><%= f.label :location_name %><%= f.text_field :location_name %></p>
+  <p><%= f.check_box :on_wish_list, {:multiple => false}, true, false %> <%= f.label :on_wish_list %></p>
   <p><%= f.submit %></p>
 <% end %>

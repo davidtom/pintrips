@@ -16,7 +16,6 @@ class Trip < ApplicationRecord
   has_many :comments
   belongs_to :user
   has_many :images
-  belongs_to :featured_image, class_name: "Image"  #Has_one would make more sense gramatically, but I had to use belongs_to here because I want the foreign key to be on the Trip table, not the Image table.
 
   before_save :check_featured_image
   before_destroy :clear_events
