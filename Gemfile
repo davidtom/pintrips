@@ -5,7 +5,7 @@ git_source(:github) do |repo_name|
   "https://github.com/#{repo_name}.git"
 end
 
-
+gem 'kaminari'
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '~> 5.1.2'
 # Use sqlite3 as the database for Active Record
@@ -45,6 +45,10 @@ group :development, :test do
   gem "better_errors"
   # Retrieve the binding of a method's caller. Can also retrieve bindings even further up the stack
   gem "binding_of_caller"
+end
+
+group :production do
+  gem 'pg'
 end
 
 group :development do

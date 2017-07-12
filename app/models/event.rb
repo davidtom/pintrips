@@ -23,10 +23,8 @@ class Event < ApplicationRecord
   has_many :comments
   has_many :images
   belongs_to :trip, optional: true
-
-  validates :review, presence: true,
-                     length: {minimum: 30}
-  validates :rating, presence: true
+  #if not on wish list, needs 10 chars in review and a rating
+  validate :wish_list_or_not
 
   def type_name= (type_name)
     Type.find_or_create_by(name: type_name).events << self
@@ -48,5 +46,30 @@ class Event < ApplicationRecord
   def is_orphan?
     self.trip_id == nil
   end
+
+  # TODO: refactor code in events_controller.rb to use this; make sure it can be used for copying trips!!
+  def self.copy_event()
+  end
+
+  # def clear_for_copy
+  #   self.tap do |s|
+  #     s.review.clear
+  #     s.rating = nil
+  #     s.date = nil
+  #     s.trip_id = nil
+  #
+  #   end
+  # end
+
+  private
+
+    def wish_list_or_not
+      if !on_wish_list
+        errors[:rating] << "must exist" if rating.nil?
+        if review
+          errors[:review] << "must be more than 10 characters" if review.length <= 10
+        end
+      end
+    end
 
 end

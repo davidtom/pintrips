@@ -10,7 +10,6 @@ class TripsController < ApplicationController
 
   def create
     trip = Trip.new(trip_params)
-    byebug
     current_user.trips << trip
     if trip.save
       flash[:success] = "Trip successfully created!"
@@ -25,13 +24,15 @@ class TripsController < ApplicationController
   end
 
   def index
-    # @trips = Trip.all.select { |trip| trip.events.any? }
     @trips = Trip.all_with_events
+    @trips = Trip.all.select { |trip| trip.events.any? }
+    @trips = Kaminari.paginate_array(@trips).page(params[:page]).per(10)
   end
 
   def show
     @comment = Comment.new
     @comments = @trip.comments
+    @featured_image_url = @trip.featured_image_url
 
   end
 
@@ -54,8 +55,9 @@ class TripsController < ApplicationController
       # redirect_to session.delete(:return_to)
       redirect_to user_path(current_user)
     else
-      flash[:danger]= "Unable to update trip."
-      render 'edit'
+      # flash[:danger]= "Unable to update trip."
+      flash[:danger]= @trip.errors.full_messages[0]
+      redirect_to request.referer
     end
   end
 
@@ -64,7 +66,7 @@ class TripsController < ApplicationController
       flash[:danger] = "You can only delete your own trips."
       redirect_to request.referer
     else
-      @trip.delete
+      @trip.destroy
       flash[:success] = "Trip successfully deleted."
       redirect_to request.referer
     end
@@ -72,6 +74,9 @@ class TripsController < ApplicationController
 
   def friends
     @trips = current_user.friend_trips
+    if @trips.size == 0 || !@trips
+      flash[:info]= "Your friends have no trips yet. Go on an adventure together!"
+    end
   end
 
   private

@@ -4,7 +4,7 @@
 
     <% @trips.each do |trip| %>
       <div class="jumbotron">
-        <%= render partial: 'trips/trip', locals: {trip: trip} %>
+        <%= render partial: 'trips/trip', locals: {trip: trip, featured_image_url: trip.featured_image_url} %>
       </div>
     <% end %>
     <% if current_user && current_user == @user %>
@@ -14,7 +14,7 @@
 
     <center><h3> Standalone Events: </h3></center>
 
-    <% @events.each do |event| %>
+    <% @orphan_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
     <% end %>
 
@@ -23,12 +23,20 @@
       <%= link_to "Create new event", new_event_path %>
     <% end %>
     <br>
+    <!--  Events Wish List -->
+    <center><h3> Wish List: </h3></center>
+    <% @wish_list_events.each do |event| %>
+      <%= render partial: "/events/event", locals: {event: event} %>
+    <% end %>
+
   </div>
   <div class="col-md-4">
     <h1><%= @user.user_name %></h1>
+    <% if current_user != @user && !Friendship.between(current_user, @user) %>
+      (<%= link_to "add friend", friendships_path(friend_id: @user), method: :post%>)
+    <% end %>
     <p><%= @user.email %></p>
-    <p><%= @user.first_name %></p>
-    <p><%= @user.last_name %></p>
+    <p><%= @user.first_name %> <%= @user.last_name %></p>
 
     <h3>My Friends:</h3>
 

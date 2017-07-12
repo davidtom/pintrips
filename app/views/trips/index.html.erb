@@ -1,3 +1,5 @@
+<%= paginate @trips %>
 <% @trips.each do |trip| %>
   <%= render partial: 'trip', locals: {trip: trip} %>
 <% end %>
+<%= paginate @trips %>
