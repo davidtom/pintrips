@@ -32,6 +32,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @events = Kaminari.paginate_array(@events).page(params[:page]).per(25)
   end
 
   def show
