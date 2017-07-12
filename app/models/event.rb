@@ -1,3 +1,20 @@
+# == Schema Information
+#
+# Table name: events
+#
+#  id          :integer          not null, primary key
+#  review      :text
+#  rating      :integer
+#  date        :datetime
+#  trip_id     :integer
+#  created_at  :datetime         not null
+#  updated_at  :datetime         not null
+#  user_id     :integer
+#  location_id :integer
+#  type_id     :integer
+#  title       :string
+#
+
 class Event < ApplicationRecord
   #belongs_to :trip
   belongs_to :user
