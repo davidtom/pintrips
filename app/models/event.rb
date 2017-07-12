@@ -47,7 +47,7 @@ class Event < ApplicationRecord
     self.trip_id == nil
   end
 
-  # TODO: refactor code in events_controller.rb to use this
+  # TODO: refactor code in events_controller.rb to use this; make sure it can be used for copying trips!!
   def self.copy_event()
   end
 

@@ -53,9 +53,15 @@ class EventsController < ApplicationController
   end
 
   def update
-    @event.update(event_params)
-    flash[:success]= "Event successfully updated."
-    redirect_to session.delete(:return_to)
+    if @event.update(event_params)
+      flash[:success] = "Event successfully updated."
+      if !event_params[:on_wish_list]
+        update_and_remove_from_wish_list(@event)
+      end
+    else
+      flash[:danger] = @event.errors.full_messages[0]
+    end
+    redirect_to request.referer
   end
 
   def copy
@@ -90,10 +96,19 @@ class EventsController < ApplicationController
   end
 
   def event_params
-    params.require(:event).permit(:review, :rating, :date, :type_name, :title, :location_name)
+    params.require(:event).permit(:review, :rating, :date, :type_name, :title, :location_name, :on_wish_list)
   end
 
   def user_match?
     current_user && @event.user.is?(current_user)
   end
+
+  def update_and_remove_from_wish_list(event)
+    if event.update(on_wish_list: false)
+      flash[:success] = "Event successfully removed from wishlist."
+    else
+      flash[:danger] = event.errors.full_messages[0] + " to remove from wish list."
+    end
+  end
+
 end
