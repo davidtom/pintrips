@@ -21,7 +21,7 @@ class Event < ApplicationRecord
 
   def location_name
     # Location.find(self.location_id).name if self.location_id
-    self.location.name
+    self.location.name if self.location
   end
 
   def location_name=(name)
