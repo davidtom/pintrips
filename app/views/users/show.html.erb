@@ -14,7 +14,7 @@
 
     <center><h3> Standalone Events: </h3></center>
 
-    <% @events.each do |event| %>
+    <% @orphan_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
     <% end %>
 

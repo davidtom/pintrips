@@ -10,5 +10,7 @@
   <p><%= event.date %></p>
   <% if event.user == current_user %>
     <p><%= link_to "Edit", edit_event_path(event) %> | <%= link_to "Delete", event_path(event), method: :delete, data: { confirm: 'Delete Event?' } %></p>
+  <% else %>
+      <p><%= link_to "Add to Wishlist", copy_event_path(event), method: :post %></p>
   <% end %>
 </div>
