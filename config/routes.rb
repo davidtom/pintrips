@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :friendships, except: [:index, :new, :edit, :update, :show]
   resources :events
   resources :comments, only: [:create, :edit, :update, :destroy]
+  resources :images, only: [:new, :create, :show, :edit, :update, :destroy]
 
 
   get 'login', to: 'sessions#new'

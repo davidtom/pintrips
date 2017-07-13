@@ -7,6 +7,12 @@
       <p><%= event.review %></p>
       <p><%= event.rating %> stars</p>
   <% end %>
+  <% if trip.images.count > 0 %>
+  <hr>
+  <h3>Trip Photos</h3>
+  <br>
+  <%= render partial: '/images/images', locals: {images: trip.images} %>
+  <% end %>
   <% if trip.user.is?(current_user) %>
     <span><%= link_to "Edit", edit_trip_path(trip)%></span>
     <span> | </span>

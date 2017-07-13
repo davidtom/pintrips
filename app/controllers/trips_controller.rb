@@ -16,7 +16,6 @@ class TripsController < ApplicationController
       redirect_to user_path(current_user)
     else
       flash[:danger] = "Unable to create trip"
-      byebug
       @events = current_user.events
       @trip = Trip.new
       render 'new'
