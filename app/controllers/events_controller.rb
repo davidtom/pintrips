@@ -100,7 +100,7 @@ class EventsController < ApplicationController
   end
 
   def user_match?
-    current_user && @event.user.is?(current_user)
+    current_user && @event.user == current_user
   end
 
   def update_and_remove_from_wish_list(event)

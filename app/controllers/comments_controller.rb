@@ -57,7 +57,7 @@ class CommentsController <ApplicationController
     end
 
     def user_match?
-      current_user && @comment.user.is?(current_user)
+      current_user && @comment.user == current_user
     end
 
 end
