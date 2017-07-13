@@ -28,10 +28,11 @@ im1.trip = bk
 im1.save
 
 Location.create(name: "Bangkok")
-Location.create(name: "Lower East Side")
+les = Location.create(name: "Lower East Side")
+nyc = Location.create(name: "New York City")
 
-ev1 = Event.create(title: "NYHRC Boat Cruise", review: "Went on NYHRC Boat cruise.  It was great!  They had good broccoli.  We saw the Statue of Liberty!  Also there were cookies but I didn't get any :(", rating: 9, date: "07/09/2017", user: User.find_by(user_name: "jeremy646"), type: Type.find_by(name: "Outdoors/nature"))
-ev2 = Event.create(title: "Gggrrgghhgh", review: "something adorable about chewing on bones", rating: 10, date: "07/08/2017", user: User.find_by(user_name: "pup_1"), type: Type.find_by(name: "Restaurants"))
+ev1 = Event.create(title: "NYHRC Boat Cruise", review: "Went on NYHRC Boat cruise.  It was great!  They had good broccoli.  We saw the Statue of Liberty!  Also there were cookies but I didn't get any :(", rating: 9, date: "07/09/2017", user: User.find_by(user_name: "jeremy646"), type: Type.find_by(name: "Outdoors/nature"), location: nyc)
+ev2 = Event.create(title: "Gggrrgghhgh", review: "something adorable about chewing on bones", rating: 10, date: "07/08/2017", user: User.find_by(user_name: "pup_1"), type: Type.find_by(name: "Restaurants"), location: les)
 
 
 
@@ -70,7 +71,7 @@ puts "Created 9 locations"
   event_review = Faker::Hipster.sentences(4).join(" ")
   event_date = Faker::Date.between("1/1/2000".to_date, "7/1/2018".to_date)
 
-  Event.create(title: event_name, review: event_review, rating: rand(1..10), date: event_date, user: User.find(rand(1..99)), type: Type.find(rand(1..Type.all.count)))
+  Event.create(title: event_name, review: event_review, rating: rand(1..10), date: event_date, user: User.find(rand(1..99)), type: Type.find(rand(1..Type.all.count)), location: Location.find(rand(1..Location.all.count)))
 end
 puts "Created 60 events"
 
@@ -79,7 +80,7 @@ puts "Created 60 events"
   event_review = Faker::Hipster.sentences(4).join(" ")
   event_date = Faker::Date.between("1/1/2000".to_date, "7/1/2018".to_date)
 
-  ev = Event.create(title: event_name, review: event_review, rating: rand(1..10), date: event_date, user: User.find(rand(1..99)), type: Type.find(rand(1..Type.all.count)))
+  ev = Event.create(title: event_name, review: event_review, rating: rand(1..10), date: event_date, user: User.find(rand(1..99)), type: Type.find(rand(1..Type.all.count)), location: Location.find(rand(1..Location.all.count)))
   byebug if ev.errors.any?
 end
 puts "Created 60 events"
@@ -101,12 +102,12 @@ end
 150.times do
   Comment.create(content: Faker::Simpsons.quote, user: User.find(rand(1..99)), event: Event.find(rand(1..40)))
 end
-puts "Created 150 Simpsons comments"
+puts "Created 150 Simpsons Event comments"
 
 150.times do
   Comment.create(content: Faker::Simpsons.quote, user: User.find(rand(1..99)), trip: Trip.find(rand(1..50)))
 end
-puts "Created 150 Simpsons comments"
+puts "Created 150 Simpsons Trip comments"
 
 150.times do
   Comment.create(content: Faker::FamilyGuy.quote, user: User.find(rand(1..99)), event: Event.find(rand(1..40)))
@@ -121,4 +122,4 @@ puts "Created 150 Yoda comments"
 20.times do
   Comment.create(content: Faker::RuPaul.quote, user: User.find(rand(1..99)), trip: Trip.find(rand(1..50)))
 end
-puts "Created 20 ru paul comments"
+puts "Created 20 RuPaul comments"
