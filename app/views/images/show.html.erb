@@ -1,0 +1,7 @@
+<h4><%= @image.title %></h4>
+<p><%= image_tag @image.url, class: "img-fluid" %></p>
+<p><%= @image.caption %></p>
+<% if @image.user == current_user %>
+  <p><%= link_to "Edit", edit_image_path(@image) %> | <%= link_to "Delete", image_path(@image), method: :delete, data: { confirm: 'Delete Photo?' } %> |
+<% end %>
+<%= link_to "Back", request.referer %></p>

@@ -1,9 +1,11 @@
 <div>
   <h3> <%= link_to event.title, event_path(event) %> </h3>
-  <%= link_to event.user.user_name, user_path(event.user) %>
-  <% event.images.each do |img| %>
-  <%= image_tag img.url, alt: img.caption %>
+  <p><%= link_to event.user.user_name, user_path(event.user) %></p>
+  <% if event.images.count > 0 %>
+  <h4>Event Photos</h4>
+  <%= render partial: '/images/images', locals: {images: event.images} %>
   <% end %>
+  <p><%= link_to "Add event photo", new_event_image_path %></p>
   <p><%= event.review %></p>
   <p><%= event.rating %></p>
   <p><%= event.type.name %></p>

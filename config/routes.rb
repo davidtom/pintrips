@@ -8,6 +8,7 @@ Rails.application.routes.draw do
   resources :friendships, except: [:index, :new, :edit, :update, :show]
   resources :events
   resources :comments, only: [:create, :edit, :update, :destroy]
+  resources :images, only: [:new, :create, :show, :edit, :update, :destroy]
 
 
   get 'login', to: 'sessions#new'
@@ -15,4 +16,6 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   post 'events/:id', to: "events#copy", as: "copy_event"
+  get '/events/images/new', to: 'images#new', as: "new_event_image"
+  get '/trips/images/new', to: 'images#new', as: "new_trip_image"
 end

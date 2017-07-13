@@ -7,7 +7,14 @@
       <p><%= event.review %></p>
       <p><%= event.rating %> stars</p>
   <% end %>
+  <% if trip.images.count > 0 %>
+  <hr>
+  <h3>Trip Photos</h3>
+  <br>
+  <%= render partial: '/images/images', locals: {images: trip.images} %>
+  <% end %>
   <% if trip.user.is?(current_user) %>
+  <p><%= link_to "Add trip photo", new_trip_image_path %></p>
     <span><%= link_to "Edit", edit_trip_path(trip)%></span>
     <span> | </span>
     <span><%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Trip and all associated events?' } %></span>
