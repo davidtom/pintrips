@@ -20,8 +20,8 @@ class Event < ApplicationRecord
   belongs_to :user
   belongs_to :location, optional: true
   belongs_to :type
-  has_many :comments
-  has_many :images
+  has_many :comments, :dependent => :destroy
+  has_many :images, :dependent => :destroy
   belongs_to :trip, optional: true
   #if not on wish list, needs 10 chars in review and a rating
   validate :wish_list_or_not

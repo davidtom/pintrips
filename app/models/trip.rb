@@ -13,9 +13,9 @@
 
 class Trip < ApplicationRecord
   has_many :events
-  has_many :comments
+  has_many :comments, :dependent => :destroy
   belongs_to :user
-  has_many :images
+  has_many :images, :dependent => :destroy
 
   before_save :check_featured_image
   before_destroy :clear_events
