@@ -32,7 +32,6 @@ class TripsController < ApplicationController
     @comment = Comment.new
     @comments = @trip.comments
     @featured_image_url = @trip.featured_image_url
-
   end
 
   def edit
@@ -58,6 +57,10 @@ class TripsController < ApplicationController
       flash[:danger]= @trip.errors.full_messages[0]
       redirect_to request.referer
     end
+  end
+
+  def copy
+    byebug
   end
 
   def destroy
