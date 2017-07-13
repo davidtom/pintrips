@@ -34,10 +34,11 @@ class User < ApplicationRecord
 
   has_secure_password
 
-  def is?(object)
-    # Used primarily to see if the user is the current_user on view pages
-    self == object
-  end
+  # TODO DELETE once all uses have been removed in views
+  # def is?(object)
+  #   # Used primarily to see if the user is the current_user on view pages
+  #   self == object
+  # end
 
   def orphan_events
     self.events.select {|event| event.is_orphan?}

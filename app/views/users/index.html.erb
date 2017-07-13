@@ -6,7 +6,7 @@
     <p>
       <strong><%=h user.user_name  %></strong>
       <% if logged_in? %>
-        <% if !user.is?(current_user) && !Friendship.between(current_user, user)%>
+        <% if !user.is == current_user && !Friendship.between(current_user, user)%>
           (<%= link_to "add friend", friendships_path(friend_id: user), method: :post%>)
         <% end %>
       <% end %>
