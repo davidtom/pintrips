@@ -41,37 +41,43 @@ ev2 = Event.create(title: "Gggrrgghhgh", review: "something adorable about chewi
 100.times do
   User.create(user_name: Faker::Internet.user_name, first_name: Faker::Name.first_name, last_name: Faker::Name.last_name, email: Faker::Internet.email, password: "admin")
 end
+puts "Created 100 users"
 
 50.times do
   start_date = Faker::Date.between("1/1/2000".to_date, "7/1/2017".to_date)
   end_date = start_date + rand(3..10)
   Trip.create(name: Faker::Address.city, start_date: start_date, end_date: end_date, user: User.find(rand(1..99)))
 end
+puts "Created 50 trips"
 
 20.times do
   coords = "#{Faker::Address.latitude}, #{Faker::Address.longitude}"
   Location.create(name: Faker::Simpsons.location, coordinates: coords)
 end
+puts "Created 20 Locations"
 
 40.times do
   coords = "#{Faker::Address.latitude}, #{Faker::Address.longitude}"
   Location.create(name: Faker::Address.city, coordinates: coords)
 end
+puts "Created 40 locations"
 
 9.times do
   coords = "#{Faker::Address.latitude}, #{Faker::Address.longitude}"
   Location.create(name: Faker::Address.community, coordinates: coords)
 end
+puts "Created 9 locations"
 
-30.times do
+60.times do
   event_name = "#{Faker::Pokemon.name}'s #{Faker::Food.ingredient.pluralize}"
   event_review = Faker::Hipster.sentences(4).join(" ")
   event_date = Faker::Date.between("1/1/2000".to_date, "7/1/2018".to_date)
 
   Event.create(title: event_name, review: event_review, rating: rand(1..10), date: event_date, user: User.find(rand(1..99)), type: Type.find(rand(1..Type.all.count)))
 end
+puts "Created 60 events"
 
-20.times do
+60.times do
   event_name = "#{Faker::Pokemon.name}'s #{Faker::Dessert.variety.pluralize}"
   event_review = Faker::Hipster.sentences(4).join(" ")
   event_date = Faker::Date.between("1/1/2000".to_date, "7/1/2018".to_date)
@@ -79,6 +85,7 @@ end
   ev = Event.create(title: event_name, review: event_review, rating: rand(1..10), date: event_date, user: User.find(rand(1..99)), type: Type.find(rand(1..Type.all.count)))
   byebug if ev.errors.any?
 end
+puts "Created 60 events"
 
 # Events are not created with a trip.  Assign them to random trips.
 Event.all.each do |event|
@@ -97,19 +104,24 @@ end
 150.times do
   Comment.create(content: Faker::Simpsons.quote, user: User.find(rand(1..99)), event: Event.find(rand(1..40)))
 end
+puts "Created 150 Simpsons comments"
 
 150.times do
   Comment.create(content: Faker::Simpsons.quote, user: User.find(rand(1..99)), trip: Trip.find(rand(1..50)))
 end
+puts "Created 150 Simpsons comments"
 
 150.times do
   Comment.create(content: Faker::FamilyGuy.quote, user: User.find(rand(1..99)), event: Event.find(rand(1..40)))
 end
+puts "Created 150 FamilyGuy comments"
 
 150.times do
   Comment.create(content: Faker::Yoda.quote, user: User.find(rand(1..99)), event: Event.find(rand(1..40)))
 end
+puts "Created 150 Yoda comments"
 
 20.times do
   Comment.create(content: Faker::RuPaul.quote, user: User.find(rand(1..99)), trip: Trip.find(rand(1..50)))
 end
+puts "Created 20 ru paul comments"

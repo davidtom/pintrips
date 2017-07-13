@@ -31,7 +31,7 @@ class EventsController < ApplicationController
   end
 
   def index
-    @events = Event.all
+    @events = Event.order(created_at: :desc)
     @events = Kaminari.paginate_array(@events).page(params[:page]).per(25)
   end
 
