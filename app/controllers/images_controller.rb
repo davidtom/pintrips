@@ -12,10 +12,10 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
   def create
     new_image = Image.new(image_params)
     new_image.user = current_user
-    if trip_params
+    if params[:trip]
       new_image.assign_attributes(trip_params)
     end
-    if event_params
+    if params[:event]
       new_image.assign_attributes(event_params)
     end
 
@@ -36,10 +36,18 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
   end
 
   def edit
+    @user_events = current_user.events
+    @user_trips = current_user.trips
 
   end
 
   def update
+    if image_params[:featured]
+      make_all_other_images_not_featured
+      @image.featured = true
+    else
+      @image.featured = false
+    end
     @image.assign_attributes(image_params)
     if params[:trip]
       @image.assign_attributes(trip_params)
@@ -83,6 +91,23 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
     params.require(:event).permit(:event_id)
   end
 
+  def make_all_other_images_not_featured
+    if @image.event_id
+      current_featured_image = @image.event.images.find { |img| img.featured == true }
+      unfeature_image(current_featured_image)
+    end
+    if @image.trip_id
+      current_featured_image = @image.trip.images.find { |img| img.featured == true }
+      unfeature_image(current_featured_image)
+    end
+  end
+
+  def unfeature_image(img)
+    if img
+      img.featured = false
+      img.save
+    end
+  end
 
 
 

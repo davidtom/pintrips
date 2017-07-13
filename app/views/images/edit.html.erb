@@ -9,14 +9,21 @@
 
   <% if @image.event_id %>
   <p><%= f.label :event_id, "Event" %>
-  <%= collection_select(:event, :event_id, @user_events, :id, :title) %>
-  <% end %></p>
+  <%= collection_select(:event, :event_id, @user_events, :id, :title, selected: @image.event_id) %>
+  </p>
+  <p><%= f.check_box :featured, {}, true, false %>
+    <%= f.label :featured, "Make this the featured image for event #{@image.event.title}" %></p>
+  <% end %>
 
 
   <% if @image.trip_id %>
   <p><%= f.label :trip_id, "Trip" %>
-  <%= collection_select(:trip, :trip_id, @user_trips, :id, :name) %>
-  <% end %></p>
+  <%= collection_select(:trip, :trip_id, @user_trips, :id, :name, selected: @image.trip_id) %>
+  </p>
+  <p><%= f.check_box :featured, {}, true, false %>
+    <%= f.label :featured, "Make this the featured image for trip #{@image.trip.name}" %></p>
+
+  <% end %>
 
 <p><%= f.submit %></p>
 <% end %>
