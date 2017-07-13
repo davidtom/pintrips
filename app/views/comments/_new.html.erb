@@ -6,5 +6,9 @@
   <% elsif type == "event" %>
     <%= hidden_field(:event_id, id) %>
   <% end %>
-<%= f.submit class: "btn btn-primary" %>
+<% if logged_in? %>
+  <%= f.submit class: "btn btn-primary" %>
+<% else %>
+  <%= f.submit class: "btn btn-primary", data: { confirm: 'Log in or sign up to post a comment!' } %>
+<% end %>
 <% end %>
