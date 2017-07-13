@@ -22,13 +22,11 @@ class Location < ApplicationRecord
     #location hash will be at
     # response['results'][0]['geometry']['location']
     url_name = name.split(' ').join('+')
-    byebug
     request_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{url_name}&key=#{@@APIKEY}"
     response = HTTParty.get(request_url)
 
     self.lat = response['results'][0]['geometry']['location']['lat']
     self.long = response['results'][0]['geometry']['location']['lng']
 
-    byebug
   end
 end
