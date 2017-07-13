@@ -18,6 +18,6 @@ Rails.application.routes.draw do
   post 'events/:id', to: "events#copy", as: "copy_event"
   get '/events/images/new', to: 'images#new', as: "new_event_image"
 
-  post 'trips/id/copy', to: "trips#copy", as: "copy_trip"
+  post 'trips/:id', to: "trips#copy", as: "copy_trip"
   get '/trips/images/new', to: 'images#new', as: "new_trip_image"
 end

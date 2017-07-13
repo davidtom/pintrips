@@ -63,7 +63,14 @@ class Trip < ApplicationRecord
     end
   end
 
-
+  def copy
+    Trip.new(
+    name: self.name,
+    start_date: nil,
+    end_date: nil,
+    on_wish_list: true
+    )
+  end
 
 
   private

@@ -19,6 +19,6 @@
     <span> | </span>
     <span><%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Trip and all associated events?' } %></span>
   <% else %>
-    <p><%= link_to "Add to Wishlist", copy_trip_path(trip), method: :post %></p>
+    <p><%= link_to "Add to Wishlist", copy_trip_path(trip.id), method: :post %></p>
   <% end %>
 </div>
