@@ -23,7 +23,6 @@ class TripsController < ApplicationController
   end
 
   def index
-    # @trips = Trip.all.select { |trip| trip.events.any? }
     @trips = Trip.all_with_events.order(created_at: :desc)
     @trips = Kaminari.paginate_array(@trips).page(params[:page]).per(10)
   end
@@ -61,6 +60,7 @@ class TripsController < ApplicationController
 
   def copy
     @new_trip = @trip.copy
+    @new_trip.images.clear
     current_user.trips << @new_trip
     if @new_trip.save
       flash[:success] = "Trip successfully copied to wishlist"

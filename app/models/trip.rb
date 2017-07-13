@@ -20,7 +20,8 @@ class Trip < ApplicationRecord
   before_save :check_featured_image
   before_destroy :clear_events
 
-  def check_featured_image # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
+  def check_featured_image
+    # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
     if self.featured_image
       if !self.images.include?(self.featured_image)  #Only add it if it's not already there
         self.images << self.featured_image
@@ -36,7 +37,7 @@ class Trip < ApplicationRecord
   end
 
   def event_titles
-    self.events.map { |e| e.title }
+    self.events.pluck(:title)
   end
 
   def event_ids=(ids)
