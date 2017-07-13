@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170712191300) do
+ActiveRecord::Schema.define(version: 20170713140724) do
 
   create_table "comments", force: :cascade do |t|
     t.text "content"
@@ -63,9 +63,10 @@ ActiveRecord::Schema.define(version: 20170712191300) do
 
   create_table "locations", force: :cascade do |t|
     t.string "name"
-    t.text "coordinates"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "lat"
+    t.string "long"
   end
 
   create_table "trips", force: :cascade do |t|
