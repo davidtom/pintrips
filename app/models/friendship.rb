@@ -16,7 +16,8 @@ class Friendship < ApplicationRecord
   validates_uniqueness_of :user_id, scope: :friend_id
 
   def self.between (user1, user2)
-    user1.friendships.find_by(friend_id: user2)
+    # user1.friendships.find_by(friend_id: user2)
+    !Friendship.from("friendships").where(["user_id = ? AND friend_id = ?", user1.id, user2.id]).empty?
   end
 
 end

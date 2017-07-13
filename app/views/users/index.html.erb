@@ -6,7 +6,11 @@
     <p>
       <strong><%=h user.user_name  %></strong>
       <% if logged_in? %>
-        <% if !user == current_user && !Friendship.between(current_user, user)%>
+      <%= puts "You" if (user == current_user) %>
+      <%= puts "should NOT have add friend link for #{user.user_name}" if Friendship.between(user, current_user) %>
+
+      <%# byebug %>
+        <% if !(user == current_user) && !Friendship.between(current_user, user)%>
           (<%= link_to "add friend", friendships_path(friend_id: user), method: :post%>)
         <% end %>
       <% end %>
