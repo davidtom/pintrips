@@ -65,7 +65,6 @@ class EventsController < ApplicationController
   end
 
   def copy
-    # @new_event = Event.new(title: @event.title, location: @event.location, type: @event.type, on_wish_list: true)
     @new_event = @event.copy
     current_user.events << @new_event
     if @new_event.save
