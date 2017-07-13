@@ -48,7 +48,12 @@ class Event < ApplicationRecord
   end
 
   # TODO: refactor code in events_controller.rb to use this; make sure it can be used for copying trips!!
-  def self.copy_event()
+  def copy
+    Event.new(
+    title: self.title,
+    location: self.location,
+    type: self.type,
+    on_wish_list: true)
   end
 
   # def clear_for_copy
