@@ -1,6 +1,6 @@
 <% comments.each do |c| %>
   <div class="well">
-    <p><%= c.user.user_name %> commented at <%= c.created_at.to_date %></p>
+    <p><%= link_to c.user.user_name, user_path(c.user) %> commented at <%= c.created_at.to_date %></p>
     <p><%= c.content %></p>
     <% if c.user.is?(current_user) %>
       <span><%= link_to "Edit", edit_comment_path(c)%></span>

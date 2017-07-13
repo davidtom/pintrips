@@ -3,7 +3,7 @@
   <p> Trip by: <%= link_to trip.user.user_name, user_path(trip.user) %></p>
   <p><%= image_tag trip.featured_image_url, class: "img-fluid" %></p>
   <% trip.events.each do |event| %>
-      <h4><%= event.title %></h4>
+      <h4><%= link_to event.title, event_path(event) %></h4>
       <p><%= event.review %></p>
       <p><%= event.rating %> stars</p>
   <% end %>
