@@ -23,10 +23,15 @@ class Location < ApplicationRecord
     # response['results'][0]['geometry']['location']
     url_name = name.split(' ').join('+')
     request_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{url_name}&key=#{@@APIKEY}"
+    # request_url = "https://maps.googleapis.com/maps/api/geocode/json?address="
     response = HTTParty.get(request_url)
-
-    self.lat = response['results'][0]['geometry']['location']['lat']
-    self.long = response['results'][0]['geometry']['location']['lng']
+    if !response['results'].empty?
+      self.lat = response['results'][0]['geometry']['location']['lat']
+      self.long = response['results'][0]['geometry']['location']['lng']
+    else
+      self.lat = '40.705185'
+      self.long = '-74.013932'
+    end
 
   end
 end
