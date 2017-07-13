@@ -12,3 +12,10 @@
   <hr>
   <p><%= f.submit %></p>
 <% end %>
+
+<% if @trip.images.count > 0 %>
+<hr>
+<h3>Trip Photos</h3>
+<br>
+<%= render partial: '/images/images', locals: {images: @trip.images} %>
+<% end %>
