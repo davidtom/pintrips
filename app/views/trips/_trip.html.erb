@@ -13,7 +13,7 @@
   <br>
   <%= render partial: '/images/images', locals: {images: trip.images} %>
   <% end %>
-  <% if trip.user.is?(current_user) %>
+  <% if trip.user == current_user %>
   <p><%= link_to "Add trip photo", new_trip_image_path %></p>
     <span><%= link_to "Edit", edit_trip_path(trip)%></span>
     <span> | </span>
