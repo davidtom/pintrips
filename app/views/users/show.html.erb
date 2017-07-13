@@ -32,11 +32,13 @@
   </div>
   <div class="col-md-4">
     <h1><%= @user.user_name %></h1>
-    <% if current_user != @user && !Friendship.between(current_user, @user) %>
-      (<%= link_to "add friend", friendships_path(friend_id: @user), method: :post%>)
+    <% if logged_in? %>
+      <% if current_user != @user && !Friendship.between(current_user, @user) %>
+        <p>(<%= link_to "add friend", friendships_path(friend_id: @user), method: :post%>)</p>
+      <% end %>
     <% end %>
-    <p><%= @user.email %></p>
     <p><%= @user.first_name %> <%= @user.last_name %></p>
+    <p><%= @user.email %></p>
 
     <h3>My Friends:</h3>
 
@@ -49,8 +51,10 @@
       </li>
     <% end %>
 
-    <p><%= link_to "Find Friends", users_path %></p>
-
+    <% if logged_in? %>
+      <p><%= link_to "Find Friends", users_path %></p>
+    <% end %>
+    
     <h3>Added me:</h3>
     <% @user.inverse_friends.each do |friend| %>
     <li>
