@@ -89,7 +89,7 @@ class TripsController < ApplicationController
   end
 
   def user_match?
-    current_user && @trip.user.is?(current_user)
+    current_user && @trip.user == current_user
   end
 
 end
