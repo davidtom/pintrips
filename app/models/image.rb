@@ -19,11 +19,11 @@ class Image < ApplicationRecord
   def make_all_other_images_not_featured
     if self.event_id
       current_featured_image = self.event.images.find { |img| img.featured == true }
-      current_featured_image.unfeature
+      current_featured_image.unfeature if current_featured_image
     end
     if self.trip_id
       current_featured_image = self.trip.images.find { |img| img.featured == true }
-      current_featured_image.unfeature
+      current_featured_image.unfeature if current_featured_image
     end
   end
 
