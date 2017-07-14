@@ -64,7 +64,8 @@ class TripsController < ApplicationController
         flash[:success]= "Image successfully updated."
       end
       if !trip_params[:on_wish_list] && @trip.on_wish_list
-        #try to take events associated with trip off wish list
+        #try to take events associated with trip off wish list TODO: Fix this! events not being prevented from being updated! Events are not being taken off wish list! Also probably put this in a method and/or model
+        byebug ##TODO: Issue found: below will always evaluate to true - find another way!
         if @trip.events.update(on_wish_list:false)
           update_and_remove_from_wish_list(@trip)
           flash[:success] = "Trip successfully updated."
