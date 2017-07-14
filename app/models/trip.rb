@@ -12,12 +12,12 @@
 #
 
 class Trip < ApplicationRecord
-  has_many :events, :dependent => :destroy
+  has_many :events
   has_many :comments, :dependent => :destroy
   belongs_to :user
   has_many :images, :dependent => :destroy
 
-
+  before_destroy :clear_events
 
 
 
@@ -36,7 +36,7 @@ class Trip < ApplicationRecord
   def event_ids=(ids)
     self.events << Event.where(id: ids)
     self.events.each do |event|
-      event.on_wish_list = false
+      event.on_wish_list = self.on_wish_list
     end
     #Old code for reference:
     # events_arr = ids.map do |id|
@@ -69,6 +69,12 @@ class Trip < ApplicationRecord
     )
   end
 
+  private
 
+    def clear_events
+      self.events.each do |event|
+        event.destroy
+      end
+    end
 
 end
