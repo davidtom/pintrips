@@ -1,4 +1,5 @@
 class SessionsController < ApplicationController
+  before_action :require_user, only: [:new]
   def new
 
   end
@@ -19,6 +20,6 @@ class SessionsController < ApplicationController
     session[:user_id] = nil
     flash[:success] = "You have logged out."
     redirect_to login_path
-    
+
   end
 end

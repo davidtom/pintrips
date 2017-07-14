@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   before_action :set_user, only: [:edit, :update, :show]
 
   def index
@@ -7,6 +6,9 @@ class UsersController < ApplicationController
   end
 
   def new
+    if current_user
+      redirect_to user_path(current_user)
+    end
     @user = User.new
   end
 
