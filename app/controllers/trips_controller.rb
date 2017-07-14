@@ -95,7 +95,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:name, event_ids:[])
+    params.require(:trip).permit(:name, :on_wish_list, event_ids:[])
   end
 
   def user_match?
