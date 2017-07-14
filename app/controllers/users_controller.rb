@@ -14,6 +14,11 @@ class UsersController < ApplicationController
 
   def create
     @user = User.new(user_params)
+    if params[:url]
+      @image = Image.new(image_params)
+      @user.profile_image = @image
+      @image.save
+    end
     if @user.save
       flash[:success] = "Welcome to PinTrips #{@user.user_name}!"
       session[:user_id] = @user.id
@@ -26,10 +31,18 @@ class UsersController < ApplicationController
   end
 
   def edit
-
+    @image = Image.new(image_params)
+    @user.profile_image = @image
+    @image.save
+    byebug
   end
 
   def update
+    if params[:url]
+      @image = Image.new(image_params)
+      @user.profile_image = @image
+      @image.save
+    end
     @user.update(user_params)
     redirect_to user_path(@user)
   end
@@ -51,4 +64,7 @@ class UsersController < ApplicationController
     params.require(:user).permit(:user_name, :email, :password, :first_name, :last_name)
   end
 
+  def image_params
+    params.permit(:url, :title, :caption)
+  end
 end

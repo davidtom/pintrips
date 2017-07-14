@@ -22,6 +22,8 @@ class User < ApplicationRecord
   has_many :trips, :dependent => :destroy
   has_many :locations, through: :events
   has_many :images, :dependent => :destroy
+  has_one :profile_image, class_name: "Image"
+
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
@@ -39,6 +41,14 @@ class User < ApplicationRecord
   #   # Used primarily to see if the user is the current_user on view pages
   #   self == object
   # end
+
+  def image_params
+
+  end
+
+  def image_params=(params)
+
+  end
 
   def completed_trips
     self.trips.where(on_wish_list: false)
