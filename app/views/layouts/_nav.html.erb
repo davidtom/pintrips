@@ -10,7 +10,7 @@
         <%= link_to "Edit Profile", edit_user_path(current_user.id), class: 'dropdown-item' %>
         <%= link_to "Logout", logout_path, method: :delete, class: 'dropdown-item' %>
       </div>
-      <%= link_to "Friends Trips", trips_friends_path, class: 'nav-link', style: 'color: #ffffff;' %>
+      <%= link_to "Friends' Trips", trips_friends_path, class: 'nav-link', style: 'color: #ffffff;' %>
     <% else %>
       <%= link_to "Log In", login_path, class: 'nav-link', style: 'color: #ffffff;' %>
       <%= link_to "Sign Up", users_sign_up_path, class: 'nav-link', style: 'color: #ffffff;' %>

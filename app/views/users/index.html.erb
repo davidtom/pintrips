@@ -1,10 +1,11 @@
+<title>Pintrips</title>
 <h1>User List</h1>
 
 <div id="users">
 <% @users.each do |user| %>
   <div class="user">
     <p>
-      <strong><%=h user.user_name  %></strong>
+      <strong><%= link_to user.user_name, user_path(user) %></strong>
       <% if logged_in? %>
       <%= puts "You" if (user == current_user) %>
       <%= puts "should NOT have add friend link for #{user.user_name}" if Friendship.between(user, current_user) %>

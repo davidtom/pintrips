@@ -1,3 +1,4 @@
+<title><%= @event.title %> - Pintrips</title>
 <%= render partial: "event", locals: {event: @event} %>
 <hr>
 <%= render partial: '/comments/new', locals: {comment: @comment, type: "event", id: @event.id} %>
