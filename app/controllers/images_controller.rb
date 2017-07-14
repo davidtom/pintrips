@@ -127,7 +127,7 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
     elsif params[:event]
       return event_path(event_params[:event_id])
     else
-      return request.referer
+      return user_path(current_user)
     end
   end
 
