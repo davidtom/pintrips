@@ -6,7 +6,7 @@
   <% end %>
 
   <% @orphan_events.each do |event| %>
-    <p><%= f.label event.title %><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %></p>
+    <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %>  <%= f.label event.title %></p>
   <% end %>
   <%= link_to "Create New Event", new_event_path %>
   <hr>

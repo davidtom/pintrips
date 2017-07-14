@@ -17,17 +17,10 @@ class Trip < ApplicationRecord
   belongs_to :user
   has_many :images, :dependent => :destroy
 
-  before_save :check_featured_image
+
   before_destroy :clear_events
 
-  def check_featured_image
-    # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
-    if self.featured_image
-      if !self.images.include?(self.featured_image)  #Only add it if it's not already there
-        self.images << self.featured_image
-      end
-    end
-  end
+
 
   def self.all_with_events
     # Store trip_ids from all Events that have one (!= nil)

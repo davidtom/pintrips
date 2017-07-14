@@ -27,6 +27,17 @@ class Event < ApplicationRecord
   validate :wish_list_or_not
   validates :location, presence: true
 
+  before_save :check_featured_image
+
+  def check_featured_image
+    # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
+    if self.featured_image
+      if !self.images.include?(self.featured_image)  #Only add it if it's not already there
+        self.images << self.featured_image
+      end
+    end
+  end
+
   def type_name= (type_name)
     Type.find_or_create_by(name: type_name).events << self
   end
@@ -66,6 +77,18 @@ class Event < ApplicationRecord
   #
   #   end
   # end
+
+  def featured_image
+    self.images.find_by(featured: true)
+  end
+
+  def featured_image_url
+    if featured_image
+      return featured_image.url
+    else
+      return ""
+    end
+  end
 
   private
 

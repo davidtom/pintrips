@@ -10,13 +10,13 @@
 <p>
   <% if request.env['PATH_INFO'].include?('event') %>
   <%= f.label :event_id, "Event" %>
-  <%= collection_select(:event, :event_id, @user_events, :id, :title, selected: @image.event_id) %>
+  <%= collection_select(:event, :event_id, @user_events, :id, :title, selected: params[:id]) %>
   <% end %>
 
 
   <% if request.env['PATH_INFO'].include?('trip') %>
   <%= f.label :trip_id, "Trip" %>
-  <%= collection_select(:trip, :trip_id, @user_trips, :id, :name, selected: @image.trip_id) %>
+  <%= collection_select(:trip, :trip_id, @user_trips, :id, :name, selected: params[:id]) %>
   <% end %>
 </p>
 
