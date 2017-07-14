@@ -1,3 +1,4 @@
+<title>Trips - Pintrips</title>
 <%= paginate @trips %>
 <% @trips.each do |trip| %>
   <%= render partial: 'trip', locals: {trip: trip} %>

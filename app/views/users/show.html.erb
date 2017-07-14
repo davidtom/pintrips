@@ -1,3 +1,4 @@
+<title><%= @user.user_name %> - Pintrips</title>
 <div class="row">
   <div class="col-md-8">
     <%= render partial: 'map', locals: {user: @user} %>
@@ -52,7 +53,12 @@
     <p><%= @user.first_name %> <%= @user.last_name %></p>
     <p><%= @user.email %></p>
 
+    <% if @user == current_user %>
     <h3>My Friends:</h3>
+    <% else %>
+    <h3><%= @user.first_name %>'s Friends</h3>
+    <% end %>
+
 
     <% @user.friendships.each do |friendship| %>
       <li>
@@ -63,14 +69,19 @@
       </li>
     <% end %>
 
-    <% if logged_in? %>
+    <% if @user == current_user %>
       <p><%= link_to "Find Friends", users_path %></p>
     <% end %>
 
+    <% if @user == current_user %>
     <h3>Added me:</h3>
+    <% else %>
+    <h3>Added <%= @user.first_name %>:</h3>
+    <% end %>
+
     <% @user.inverse_friends.each do |friend| %>
     <li>
-      <%= friend.user_name %>
+      <%= link_to friend.user_name, user_path(friend) %>
       <% if current_user == @user && !Friendship.between(current_user, friend) %>
         (<%= link_to "add friend", friendships_path(friend_id: friend), method: :post%>)
       <% end %>
