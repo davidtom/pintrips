@@ -44,6 +44,10 @@ class User < ApplicationRecord
     self.trips.where(on_wish_list: false)
   end
 
+  def completed_events
+    self.events.where(on_wish_list: false)
+  end
+
   def orphan_events
     #old code for reference
     # self.events.select {|event| event.is_orphan? && event.on_wish_list == false}
