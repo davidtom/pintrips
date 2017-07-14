@@ -18,7 +18,7 @@
 class Event < ApplicationRecord
   #belongs_to :trip
   belongs_to :user
-  belongs_to :location, optional: true
+  belongs_to :location
   belongs_to :type
   has_many :comments, :dependent => :destroy
   has_many :images, :dependent => :destroy
