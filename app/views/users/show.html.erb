@@ -50,6 +50,9 @@
         <p>(<%= link_to "add friend", friendships_path(friend_id: @user), method: :post%>)</p>
       <% end %>
     <% end %>
+    <% if @user.profile_image %>
+      <a href="<%= image_path(@user.profile_image) %>"><img class="img-fluid" width="280" src="<%= @user.profile_image.url %>" alt="<%= @user.profile_image.title %>" style="border-radius: 50%"></a>
+    <% end %>
     <p><%= @user.first_name %> <%= @user.last_name %></p>
     <p><%= @user.email %></p>
 

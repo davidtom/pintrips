@@ -1,27 +1,45 @@
-<%= form_for @user do |f| %>
-  <p>
-    <%= f.label :user_name %>:
-    <%= f.text_field :user_name %>
-  </p>
-  <p>
-    <%= f.label :email %>:
-    <%= f.email_field :email %>
-  </p>
-  <p>
-    <%= f.label :password %>:
-    <%= f.password_field :password %>
-  </p>
-  <p>
-    <%= f.label :password_confirmation %>:
-    <%= f.password_field :password_confirmation %>
-  </p>
-  <p>
-    <%= f.label :first_name %>:
-    <%= f.text_field :first_name %>
-  </p>
-  <p>
-    <%= f.label :last_name %>:
-    <%= f.text_field :last_name %>
-  </p>
-  <p><%= f.submit %></p>
-<% end %>
+<div class="row">
+
+  <div class="col-md-6">
+    <%= form_for @user do |f| %>
+      <p>
+        <%= f.label :user_name %>:
+        <%= f.text_field :user_name %>
+      </p>
+      <p>
+        <%= f.label :email %>:
+        <%= f.email_field :email %>
+      </p>
+      <p>
+        <%= f.label :password %>:
+        <%= f.password_field :password %>
+      </p>
+      <p>
+        <%= f.label :password_confirmation %>:
+        <%= f.password_field :password_confirmation %>
+      </p>
+      <p>
+        <%= f.label :first_name %>:
+        <%= f.text_field :first_name %>
+      </p>
+      <p>
+        <%= f.label :last_name %>:
+        <%= f.text_field :last_name %>
+      </p>
+      <p><%= f.submit %></p>
+
+  </div>
+
+  <div class="col-md-6">
+    <h4>Add a photo (optional)</h4>
+    <%= fields_for @image do |i| %>
+      <p><%= i.label :url, "Image URL (please host elsewhere)"  %>
+      <%= i.text_field :url %></p>
+      <p><%= i.label :title %><br>
+      <%= i.text_field :title %></p>
+      <p><%= i.label :caption %><br>
+      <%= i.text_area :caption %></p>
+    <% end %>
+  </div>
+  <% end %>
+</div>
