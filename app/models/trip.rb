@@ -41,19 +41,19 @@ class Trip < ApplicationRecord
   end
 
   def event_ids=(ids)
-    events_arr = ids.map do |id|
-      Event.find(id)
-    end
-
-    events_arr.each do |event|
-      self.events << event
-    end
+    self.events << Event.where(id: ids)
+    #Old code for reference:
+    # events_arr = ids.map do |id|
+    #   Event.find(id)
+    # end
+    #
+    # events_arr.each do |event|
+    #   self.events << event
+    # end
   end
 
   def featured_image
-    self.images.find do |image|
-      image.featured == true
-    end
+    self.images.find_by(featured: true)
   end
 
   def featured_image_url
