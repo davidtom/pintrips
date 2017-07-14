@@ -1,5 +1,5 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  before_action :set_trip, only: [:show, :edit, :update, :copy, :destroy]
   before_action :require_user, only:[:new, :edit, :update, :friends]
 
   def new
@@ -23,7 +23,6 @@ class TripsController < ApplicationController
   end
 
   def index
-    # @trips = Trip.all.select { |trip| trip.events.any? }
     @trips = Trip.all_with_events.order(created_at: :desc)
     @trips = Kaminari.paginate_array(@trips).page(params[:page]).per(10)
   end
@@ -32,7 +31,6 @@ class TripsController < ApplicationController
     @comment = Comment.new
     @comments = @trip.comments
     @featured_image_url = @trip.featured_image_url
-
   end
 
   def edit
@@ -57,6 +55,18 @@ class TripsController < ApplicationController
       # flash[:danger]= "Unable to update trip."
       flash[:danger]= @trip.errors.full_messages[0]
       redirect_to request.referer
+    end
+  end
+
+  def copy
+    @new_trip = @trip.copy
+    @new_trip.images.clear
+    current_user.trips << @new_trip
+    if @new_trip.save
+      flash[:success] = "Trip successfully copied to wishlist"
+      redirect_to user_path(current_user)
+    else
+      flash[:danger] = @new_event.errors.full_messages[0] + " Trip was unable to be created, please try again."
     end
   end
 

@@ -14,7 +14,7 @@
     <% end %>
     <hr>
 
-    <center><h3> Standalone Events: </h3></center>
+    <center><h3> Events: </h3></center>
 
     <% @orphan_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
@@ -24,9 +24,19 @@
     <% if current_user && current_user == @user %>
       <%= link_to "Create new event", new_event_path %>
     <% end %>
-    <br>
+    <hr>
+
+    <!-- WISH LIST SECTION -->
+    <center><h2> Wish List: </h2></center>
+
+    <!-- Trips Wish List -->
+    <center><h3> Trips: </h3></center>
+    <% @wish_list_trips.each do |trip| %>
+      <%= render partial: "/trips/trip", locals: {trip: trip} %>
+    <% end %>
+
     <!--  Events Wish List -->
-    <center><h3> Wish List: </h3></center>
+    <center><h3> Events: </h3></center>
     <% @wish_list_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
     <% end %>

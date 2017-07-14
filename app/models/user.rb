@@ -40,12 +40,31 @@ class User < ApplicationRecord
   #   self == object
   # end
 
+  def completed_trips
+    self.trips.where(on_wish_list: false)
+  end
+
   def orphan_events
-    self.events.select {|event| event.is_orphan?}
+    #old code for reference
+    # self.events.select {|event| event.is_orphan? && event.on_wish_list == false}
+    self.events.where(on_wish_list: false, trip_id: nil)
+  end
+
+  def wish_list_trips
+    self.trips.where(on_wish_list: true)
+  end
+
+  def wish_list_events
+    self.events.where(on_wish_list: true)
   end
 
   def friend_trips
-    self.friends.collect {|friend| friend.trips}.flatten
+    #get ids of friends
+    friend_ids = self.friends.pluck(:id)
+    #find trips that have user_id that matches a friend_id
+    Trip.where(user_id: friend_ids)
+    #old code for reference
+    # self.friends.collect {|friend| friend.trips}.flatten
   end
 
 end

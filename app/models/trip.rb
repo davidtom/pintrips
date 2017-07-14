@@ -20,7 +20,8 @@ class Trip < ApplicationRecord
   before_save :check_featured_image
   before_destroy :clear_events
 
-  def check_featured_image # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
+  def check_featured_image
+    # Check the trip to see if a featured image has been added.  If so, add the image to trip.images
     if self.featured_image
       if !self.images.include?(self.featured_image)  #Only add it if it's not already there
         self.images << self.featured_image
@@ -36,23 +37,23 @@ class Trip < ApplicationRecord
   end
 
   def event_titles
-    self.events.map { |e| e.title }
+    self.events.pluck(:title)
   end
 
   def event_ids=(ids)
-    events_arr = ids.map do |id|
-      Event.find(id)
-    end
-
-    events_arr.each do |event|
-      self.events << event
-    end
+    self.events << Event.where(id: ids)
+    #Old code for reference:
+    # events_arr = ids.map do |id|
+    #   Event.find(id)
+    # end
+    #
+    # events_arr.each do |event|
+    #   self.events << event
+    # end
   end
 
   def featured_image
-    self.images.find do |image|
-      image.featured == true
-    end
+    self.images.find_by(featured: true)
   end
 
   def featured_image_url
@@ -63,7 +64,14 @@ class Trip < ApplicationRecord
     end
   end
 
-
+  def copy
+    Trip.new(
+    name: self.name,
+    start_date: nil,
+    end_date: nil,
+    on_wish_list: true
+    )
+  end
 
 
   private

@@ -14,9 +14,11 @@
   <%= render partial: '/images/images', locals: {images: trip.images} %>
   <% end %>
   <% if trip.user == current_user %>
-  <p><%= link_to "Add trip photo", new_trip_image_path %></p>
+    <p><%= link_to "Add trip photo", new_trip_image_path %></p>
     <span><%= link_to "Edit", edit_trip_path(trip)%></span>
     <span> | </span>
     <span><%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Trip and all associated events?' } %></span>
+  <% else %>
+    <p><%= link_to "Add to Wishlist", copy_trip_path(trip.id), method: :post %></p>
   <% end %>
 </div>

@@ -33,9 +33,10 @@ class UsersController < ApplicationController
   end
 
   def show
-    @orphan_events = @user.events.select {|event| event.is_orphan? && event.on_wish_list == false}
-    @trips = @user.trips
-    @wish_list_events = @user.events.where(on_wish_list: true)
+    @trips = @user.completed_trips
+    @orphan_events = @user.orphan_events
+    @wish_list_trips = @user.wish_list_trips
+    @wish_list_events = @user.wish_list_events
   end
 
   private
