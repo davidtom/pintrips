@@ -59,7 +59,7 @@ class User < ApplicationRecord
   end
 
   def wish_list_events
-    self.events.where(on_wish_list: true)
+    self.events.where(on_wish_list: true, trip_id: nil)
   end
 
   def friend_trips
