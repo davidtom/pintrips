@@ -12,13 +12,13 @@
 #
 
 class Trip < ApplicationRecord
-  has_many :events
+  has_many :events, :dependent => :destroy
   has_many :comments, :dependent => :destroy
   belongs_to :user
   has_many :images, :dependent => :destroy
 
 
-  before_destroy :clear_events
+
 
 
 
@@ -67,11 +67,5 @@ class Trip < ApplicationRecord
   end
 
 
-  private
 
-  def clear_events
-    self.events.each do |event|
-      event.destroy
-    end
-  end
 end

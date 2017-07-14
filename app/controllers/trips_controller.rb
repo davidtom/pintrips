@@ -4,7 +4,8 @@ class TripsController < ApplicationController
 
   def new
     @events  = [] # DOnt ask.
-    @orphan_events = current_user.orphan_events
+    @addable_events = current_user.orphan_events + current_user.wish_list_events
+
     @trip = Trip.new
   end
 
