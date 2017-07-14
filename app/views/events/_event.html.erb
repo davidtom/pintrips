@@ -6,9 +6,11 @@
   <h4>Event Photos</h4>
   <%= render partial: '/images/images', locals: {images: event.images} %>
   <% end %>
+  <% if event.user == current_user %>
   <p><%= link_to "Add event photo", new_event_image_path(event.id) %></p>
+  <% end %>
   <p><%= event.review %></p>
-  <p><%= event.rating %></p>
+  <p><%= event.rating %><%= " star".pluralize(event.rating) %></p>
   <p><%= event.type.name %></p>
   <p><%= event.date %></p>
   <% if event.user == current_user %>

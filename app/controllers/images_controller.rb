@@ -21,7 +21,7 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
 
     if new_image.save
       flash[:success] = "Photo successfully added!"
-      redirect_to user_path(current_user) #change this later
+      redirect_to image_return_path
     else
       flash[:danger] = new_image.errors.full_messages[0]
       @image = Image.new
@@ -58,7 +58,7 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
 
     if @image.save
       flash[:success] = "Photo successfully updated!"
-      redirect_to image_path(@image)
+      redirect_to image_return_path
     else
       flash[:danger] = @image.errors.full_messages[0]
 
@@ -70,6 +70,14 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
   end
 
   def destroy
+    if !user_match?
+      flash[:danger] = "You can only delete your own photo."
+      redirect_to request.referer
+    else
+      @image.destroy
+      flash[:success] = "Photo successfully deleted."
+      redirect_to image_return_path
+    end
   end
 
 
@@ -108,6 +116,21 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
       img.save
     end
   end
+
+  def user_match?
+    current_user && @image.user == current_user
+  end
+
+  def image_return_path
+    if params[:trip]
+      return trip_path(trip_params[:trip_id])
+    elsif params[:event]
+      return event_path(event_params[:event_id])
+    else
+      return request.referer
+    end
+  end
+
 
 
 
