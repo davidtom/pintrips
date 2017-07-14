@@ -1,5 +1,6 @@
 <div class="container">
 
+
   <div class="row">
 
     <div class="col-md-6">
@@ -11,7 +12,7 @@
         <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %>  <%= f.label event.title %></p>
         <% end %>
 
-        <% @orphan_events.each do |event| %>
+        <% @addable_events.each do |event| %>
         <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %>  <%= f.label event.title %></p>
         <% end %>
         <%= link_to "Create New Event", new_event_path %>
@@ -34,6 +35,7 @@
     <% end %>
   </div>
 </div>
+
 
 <% if @trip.images.count > 0 %>
 <hr>

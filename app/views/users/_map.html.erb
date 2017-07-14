@@ -17,7 +17,7 @@
       zoom: 2,
       center: {lat: 40.705255, lng: -74.013973},
     });
-    <% user.events.each do |event| %>
+    <% user.completed_events.each do |event| %>
       var myLatLng = {lat: <%= event.location.lat %>, lng: <%= event.location.long %>};
       var marker = new google.maps.Marker({
         position: myLatLng,

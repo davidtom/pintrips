@@ -16,21 +16,22 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
+
     if params[:image]
       new_image = Image.new(image_params)
       new_image.event = @event
       new_image.user = current_user
       new_image.save
     end
-    if @event.save #TODO REFACTOR this code everywhere it appears, if possible
+    if @event.save
       flash[:success] = "Event was successfully created."
-      # redirect_to user_path(current_user)
-      redirect_to event_path(@event)
+      redirect_to session.delete(:return_to)
+
     else
       if current_user == nil
         flash[:danger] = "You must be logged in to create an event."
       else
-        flash[:danger] = @event.errors.full_messages[0] + "  Event was unable to be created, please try again."
+        flash[:danger] = @event.errors.full_messages[0] + ". Event was unable to be created, please try again."
       end
       render 'new'
     end
