@@ -25,7 +25,8 @@ class Event < ApplicationRecord
   belongs_to :trip, optional: true
   #if not on wish list, needs 10 chars in review and a rating
   validate :wish_list_or_not
-  validates :location, presence: true
+  # validate :valid_location
+  validates :location_id, presence: true
 
   before_save :check_featured_image
 
