@@ -5,7 +5,6 @@ class TripsController < ApplicationController
   def new
     @events  = [] # DOnt ask.
     @addable_events = current_user.orphan_events + current_user.wish_list_events
-
     @trip = Trip.new
   end
 
@@ -16,6 +15,7 @@ class TripsController < ApplicationController
       new_image = Image.new(image_params)
       new_image.trip = trip
       new_image.user = current_user
+      new_image.featured = true
       new_image.save
     end
     if trip.save
@@ -77,6 +77,8 @@ class TripsController < ApplicationController
     @new_trip.images.clear
     current_user.trips << @new_trip
     if @new_trip.save
+      #copy events from original trip to the new trip (must do after save so there is a trip_id)
+      @trip.copy_events(current_user, @new_trip)
       flash[:success] = "Trip successfully copied to wishlist"
       redirect_to user_path(current_user)
     else
@@ -109,7 +111,7 @@ class TripsController < ApplicationController
   end
 
   def trip_params
-    params.require(:trip).permit(:name, event_ids:[])
+    params.require(:trip).permit(:name, :on_wish_list, event_ids:[])
   end
 
   def image_params

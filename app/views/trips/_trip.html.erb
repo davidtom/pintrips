@@ -5,7 +5,9 @@
   <% trip.events.each do |event| %>
       <h4><%= link_to event.title, event_path(event) %></h4>
       <p><%= event.review %></p>
-      <p><%= event.rating %><%= " star".pluralize(event.rating) %></p>
+      <% if !event.rating.nil? %>
+        <p><%= event.rating %><%= " star".pluralize(event.rating) %></p>
+      <% end %>
   <% end %>
   <% if trip.images.count > 0 %>
   <hr>

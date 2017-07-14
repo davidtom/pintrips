@@ -15,7 +15,8 @@
         <% @addable_events.each do |event| %>
         <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %>  <%= f.label event.title %></p>
         <% end %>
-        <%= link_to "Create New Event", new_event_path %>
+        <p><%= link_to "Create New Event", new_event_path %></p>
+        <p><%= f.check_box :on_wish_list, {:multiple => false}, true, false %> <%= f.label "Trip on Wish List" %></p>
         <hr>
     </div>
 
@@ -35,7 +36,6 @@
     <% end %>
   </div>
 </div>
-
 
 <% if @trip.images.count > 0 %>
 <hr>
