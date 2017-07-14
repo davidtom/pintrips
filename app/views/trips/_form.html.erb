@@ -2,13 +2,14 @@
   <p><%= f.label :name %>  <%= f.text_field :name %></p>
   <h3> My Events </h3>
   <% @events.each do |event| %>
-    <p><%= f.label event.title %><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %></p>
+  <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %> <%= f.label event.title %></p>
   <% end %>
 
   <% @addable_events.each do |event| %>
-    <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %>  <%= f.label event.title %></p>
+    <p><%= f.check_box :event_ids, {:multiple => true}, event.id, nil %> <%= f.label event.title %></p>
   <% end %>
-  <%= link_to "Create New Event", new_event_path %>
+  <p><%= link_to "Create New Event", new_event_path %></p>
+  <p><%= f.check_box :on_wish_list, {:multiple => false}, true, false %> <%= f.label "Trip on Wish List" %></p>
   <hr>
   <p><%= f.submit %></p>
 <% end %>
