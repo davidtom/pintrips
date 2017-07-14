@@ -21,6 +21,7 @@ class EventsController < ApplicationController
       new_image = Image.new(image_params)
       new_image.event = @event
       new_image.user = current_user
+      new_image.featured = true 
       new_image.save
     end
     if @event.save

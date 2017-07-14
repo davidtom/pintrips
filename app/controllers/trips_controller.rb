@@ -16,6 +16,7 @@ class TripsController < ApplicationController
       new_image = Image.new(image_params)
       new_image.trip = trip
       new_image.user = current_user
+      new_image.featured = true
       new_image.save
     end
     if trip.save

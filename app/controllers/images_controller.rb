@@ -43,7 +43,7 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
 
   def update
     if image_params[:featured]
-      make_all_other_images_not_featured
+      @image.make_all_other_images_not_featured
       @image.featured = true
     else
       @image.featured = false
@@ -99,23 +99,23 @@ before_action :set_image, only: [:show, :edit, :update, :destroy]
     params.require(:event).permit(:event_id)
   end
 
-  def make_all_other_images_not_featured
-    if @image.event_id
-      current_featured_image = @image.event.images.find { |img| img.featured == true }
-      unfeature_image(current_featured_image)
-    end
-    if @image.trip_id
-      current_featured_image = @image.trip.images.find { |img| img.featured == true }
-      unfeature_image(current_featured_image)
-    end
-  end
-
-  def unfeature_image(img)
-    if img
-      img.featured = false
-      img.save
-    end
-  end
+  # def make_all_other_images_not_featured
+  #   if @image.event_id
+  #     current_featured_image = @image.event.images.find { |img| img.featured == true }
+  #     unfeature_image(current_featured_image)
+  #   end
+  #   if @image.trip_id
+  #     current_featured_image = @image.trip.images.find { |img| img.featured == true }
+  #     unfeature_image(current_featured_image)
+  #   end
+  # end
+  #
+  # def unfeature_image(img)
+  #   if img
+  #     img.featured = false
+  #     img.save
+  #   end
+  # end
 
   def user_match?
     current_user && @image.user == current_user
