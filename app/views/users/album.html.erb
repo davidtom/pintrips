@@ -1,0 +1,19 @@
+<div class="row">
+  <% @user.trips.each do |trip| %>
+    <% trip.images.each do |img| %>
+      <div class="card">
+        <a href="<%= image_path(img) %>"><img class="img-fluid" width="280" src="<%= img.url %>" alt="<%= img.title %>"></a>
+        <p class="card-text"><%= img.caption %></p>
+      </div>
+      <% trip.events.each do |event| %>
+        <% event.images.each do |img| %>
+          <div class="card">
+            <a href="<%= image_path(img) %>"><img class="img-fluid" width="280" src="<%= img.url %>" alt="<%= img.title %>"></a>
+            <p class="card-text"><%= img.caption %></p>
+          </div>
+        <% end %>
+      <% end %>
+    <% end %>
+  <% end %>
+
+</div>

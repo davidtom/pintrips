@@ -20,4 +20,6 @@ Rails.application.routes.draw do
 
   post 'trips/:id', to: "trips#copy", as: "copy_trip"
   get '/trips/images/new', to: 'images#new', as: "new_trip_image"
+
+  get '/users/:id/album', to: "users#album", as: "user_album"
 end

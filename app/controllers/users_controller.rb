@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
 
-  before_action :set_user, only: [:edit, :update, :show]
+  before_action :set_user, only: [:edit, :update, :show, :album]
 
   def index
     @users = User.all
@@ -38,6 +38,11 @@ class UsersController < ApplicationController
     @wish_list_trips = @user.wish_list_trips
     @wish_list_events = @user.wish_list_events
   end
+
+  def album
+
+  end
+
 
   private
 
