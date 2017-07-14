@@ -22,13 +22,11 @@
       var marker = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: 'Hello World!'
+        title: <%= event.title %>
       });
     <% end %>
   }
 </script>
-
-
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsxlU4Q04vn0Qnf2gTGhFBFsBxo04xZ-w&callback=initMap"
 async defer></script>
