@@ -16,9 +16,17 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
+
+    if params[:image]
+      new_image = Image.new(image_params)
+      new_image.event = @event
+      new_image.user = current_user
+      new_image.save
+    end
     if @event.save
       flash[:success] = "Event was successfully created."
       redirect_to session.delete(:return_to)
+
     else
       if current_user == nil
         flash[:danger] = "You must be logged in to create an event."
@@ -54,13 +62,20 @@ class EventsController < ApplicationController
   def update
     if @event.update(event_params)
       flash[:success] = "Event successfully updated."
-      if !event_params[:on_wish_list]
+      if params[:image]
+        new_image = Image.new(image_params)
+        new_image.event = @event
+        new_image.user = current_user
+        new_image.save
+      end
+      if !event_params[:on_wish_list] && @event.on_wish_list == true
         update_and_remove_from_wish_list(@event)
       end
     else
       flash[:danger] = @event.errors.full_messages[0]
+      redirect_to request.referer
     end
-    redirect_to request.referer
+    redirect_to event_path(@event)
   end
 
   def copy
@@ -96,6 +111,10 @@ class EventsController < ApplicationController
 
   def event_params
     params.require(:event).permit(:review, :rating, :date, :type_name, :title, :location_name, :on_wish_list)
+  end
+
+  def image_params
+    params.require(:image).permit(:url, :title, :caption)
   end
 
   def user_match?

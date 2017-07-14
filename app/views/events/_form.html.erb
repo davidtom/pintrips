@@ -1,11 +1,36 @@
-<%= form_for @event do |f| %>
-  <p><%= f.label :title %>  <%= f.text_field :title %></p>
-  <p><%= f.label :review %></p>
-  <p><%= f.text_area :review %></p>
-  <p><%= f.label :type_name %> <%= f.select :type_name, Type.all.map { |type| [type.name,type.name]} %>
-  <p><%= f.label :rating %>  <%= f.select :rating, (0..10) %></p>
-  <p><%= f.label :date %><%= f.date_select :date, :order => [:day, :month, :year] %></p>
-  <p><%= f.label :location_name %><%= f.text_field :location_name %></p>
-  <p><%= f.check_box :on_wish_list, {:multiple => false}, true, false %> <%= f.label :on_wish_list %></p>
-  <p><%= f.submit %></p>
-<% end %>
+<div class="container">
+
+  <div class="row">
+
+    <div class="col-md-6">
+      <%= form_for @event do |f| %>
+      <% if @event.id %>
+      <h4>Update event</h4>
+      <% else %>
+      <h4>Add an event</h4>
+      <% end %>
+      <p><%= f.label :title %><br>
+      <%= f.text_field :title %></p>
+      <p><%= f.label :review %></p>
+      <p><%= f.text_area :review %></p>
+      <p><%= f.label :type_name %> <%= f.select :type_name, Type.all.map { |type| [type.name,type.name]} %>
+      <p><%= f.label :rating %>  <%= f.select :rating, (0..10) %></p>
+      <p><%= f.label :date %><%= f.date_select :date, :order => [:day, :month, :year] %></p>
+      <p><%= f.label :location_name %><%= f.text_field :location_name %></p>
+      <p><%= f.check_box :on_wish_list, {:multiple => false}, true, false %> <%= f.label :on_wish_list %></p>
+      <p><%= f.submit %></p>
+    </div>
+    <div class="col-md-6">
+      <h4>Add a photo (optional)</h4>
+      <%= fields_for :image do |i| %>
+      <p><%= i.label :url, "Image URL (please host elsewhere)"  %>
+      <%= i.text_field :url %></p>
+      <p><%= i.label :title %><br>
+      <%= i.text_field :title %></p>
+      <p><%= i.label :caption %><br>
+      <%= i.text_area :caption %></p>
+      <% end %>
+    </div>
+  <% end %>
+  </div>
+</div>

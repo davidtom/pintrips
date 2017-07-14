@@ -12,9 +12,15 @@ class TripsController < ApplicationController
   def create
     trip = Trip.new(trip_params)
     current_user.trips << trip
+    if params[:image]
+      new_image = Image.new(image_params)
+      new_image.trip = trip
+      new_image.user = current_user
+      new_image.save
+    end
     if trip.save
       flash[:success] = "Trip successfully created!"
-      redirect_to user_path(current_user)
+      redirect_to trip_path(trip)
     else
       flash[:danger] = "Unable to create trip"
       @events = current_user.events
@@ -49,9 +55,16 @@ class TripsController < ApplicationController
   def update
     @trip.events = []
     if @trip.update(trip_params)
+      if params[:image]
+        new_image = Image.new(image_params)
+        new_image.trip = @trip
+        new_image.user = current_user
+        new_image.save
+      end
       flash[:success]= "Trip successfully updated."
+
       # redirect_to session.delete(:return_to)
-      redirect_to user_path(current_user)
+      redirect_to trip_path(@trip)
     else
       # flash[:danger]= "Unable to update trip."
       flash[:danger]= @trip.errors.full_messages[0]
@@ -97,6 +110,10 @@ class TripsController < ApplicationController
 
   def trip_params
     params.require(:trip).permit(:name, event_ids:[])
+  end
+
+  def image_params
+    params.require(:image).permit(:url, :title, :caption)
   end
 
   def user_match?
