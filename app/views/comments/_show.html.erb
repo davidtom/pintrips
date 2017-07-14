@@ -1,5 +1,5 @@
 <% comments.each do |c| %>
-  <div class="well">
+  <div style="background-color: #f3f3f3">
     <p><%= link_to c.user.user_name, user_path(c.user) %> commented at <%= c.created_at.to_date %></p>
     <p><%= c.content %></p>
     <% if c.user == current_user %>
@@ -8,4 +8,5 @@
       <span><%= link_to "Delete", comment_path(c), method: :delete, data: { confirm: 'Delete Comment?' } %></span>
     <% end %>
   </div>
+  <hr>
 <% end %>
