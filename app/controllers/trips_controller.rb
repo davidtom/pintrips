@@ -40,7 +40,7 @@ class TripsController < ApplicationController
       redirect_to request.referer
     else
       @events = @trip.events
-      @orphan_events = current_user.orphan_events
+      @addable_events = current_user.orphan_events + current_user.wish_list_events
       #store previous page so it can be linked back to after update
       session[:return_to] ||= request.referer
       end

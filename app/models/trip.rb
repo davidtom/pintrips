@@ -35,6 +35,9 @@ class Trip < ApplicationRecord
 
   def event_ids=(ids)
     self.events << Event.where(id: ids)
+    self.events.each do |event|
+      event.on_wish_list = false
+    end
     #Old code for reference:
     # events_arr = ids.map do |id|
     #   Event.find(id)
