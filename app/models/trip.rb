@@ -35,9 +35,11 @@ class Trip < ApplicationRecord
 
   def event_ids=(ids)
     self.events << Event.where(id: ids)
-    self.events.each do |event|
-      event.on_wish_list = self.on_wish_list
-    end
+    #events that are added to a trip (new or update), are set to that trips' on_wish_list status
+    self.events.update(on_wish_list: self.on_wish_list)
+    # self.events.each do |event|
+    #   event.on_wish_list = self.on_wish_list
+    # end
     #Old code for reference:
     # events_arr = ids.map do |id|
     #   Event.find(id)
@@ -67,6 +69,10 @@ class Trip < ApplicationRecord
     end_date: nil,
     on_wish_list: true
     )
+  end
+
+  def copy_events(current_user, new_trip)
+    self.events.each {|e| e.copy.update(user_id: current_user.id, trip_id: new_trip.id)}
   end
 
   private
