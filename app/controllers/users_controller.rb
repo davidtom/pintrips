@@ -9,12 +9,13 @@ class UsersController < ApplicationController
     if current_user
       redirect_to user_path(current_user)
     end
+    @profile_image = Image.new
     @user = User.new
   end
 
   def create
     @user = User.new(user_params)
-    if params[:url]
+    if params[:profile_image]
       @image = Image.new(image_params)
       @user.profile_image = @image
       @image.save
@@ -31,14 +32,11 @@ class UsersController < ApplicationController
   end
 
   def edit
-    @image = Image.new(image_params)
-    @user.profile_image = @image
-    @image.save
-    byebug
+    
   end
 
   def update
-    if params[:url]
+    if params[:profile_image]
       @image = Image.new(image_params)
       @user.profile_image = @image
       @image.save
@@ -61,10 +59,10 @@ class UsersController < ApplicationController
   end
 
   def user_params
-    params.require(:user).permit(:user_name, :email, :password, :first_name, :last_name)
+    params.require(:user).permit(:user_name, :email, :password, :first_name, :last_name, :profile_image_url)
   end
 
   def image_params
-    params.permit(:url, :title, :caption)
+    params.require(:profile_image).permit(:url, :title, :caption)
   end
 end

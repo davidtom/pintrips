@@ -22,8 +22,8 @@ class User < ApplicationRecord
   has_many :trips, :dependent => :destroy
   has_many :locations, through: :events
   has_many :images, :dependent => :destroy
-  has_one :profile_image, class_name: "Image"
-
+  has_one :profile_image, class_name: "Image", :dependent => :destroy
+  accepts_nested_attributes_for :profile_image
 
   VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
   validates :email, presence: true,
@@ -81,4 +81,11 @@ class User < ApplicationRecord
     # self.friends.collect {|friend| friend.trips}.flatten
   end
 
+  def profile_image_url
+
+  end
+
+  def profile_image_url=(url)
+    self.profile_image = Image.new(url: url)
+  end
 end

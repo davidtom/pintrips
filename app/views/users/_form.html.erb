@@ -26,13 +26,17 @@
         <%= f.label :last_name %>:
         <%= f.text_field :last_name %>
       </p>
-      <p><%= f.submit %></p>
+
+      
+
 
   </div>
 
   <div class="col-md-6">
+
+
     <h4>Add a photo (optional)</h4>
-    <%= fields_for @image do |i| %>
+    <%= fields_for :profile_image do |i| %>
       <p><%= i.label :url, "Image URL (please host elsewhere)"  %>
       <%= i.text_field :url %></p>
       <p><%= i.label :title %><br>
@@ -40,6 +44,9 @@
       <p><%= i.label :caption %><br>
       <%= i.text_area :caption %></p>
     <% end %>
-  </div>
+    </div>
+
+
+    <p><%= f.submit %></p>
   <% end %>
 </div>

@@ -1,31 +1,17 @@
-<% user.events.each do |event| %>
-  <script>
-    function initMap() {
-      var myLatLng = {lat: <%= event.location.lat %>, lng: <%= event.location.long %>};
-
-      var marker = new google.maps.Marker({
-        position: myLatLng,
-        map: map,
-        title: '<%= event.location.name %>'
-      });
-    }
-  </script>
+<h4>Add a photo (optional)</h4>
+<%= fields_for :profile_image do |i| %>
+  <p><%= i.label :url, "Image URL (please host elsewhere)"  %>
+  <%= i.text_field :url %></p>
+  <p><%= i.label :title %><br>
+  <%= i.text_field :title %></p>
+  <p><%= i.label :caption %><br>
+  <%= i.text_area :caption %></p>
 <% end %>
+</div>s
 
 
 
-
-var map;
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 40.705255, lng: -74.013973},
-    zoom: 1
-  });
-}
-var myLatLng = {lat: <%= event.location.lat %>, lng: <%= event.location.long %>};
-
-var marker = new google.maps.Marker({
-  position: myLatLng,
-  map: map,
-  title: '<%= event.location.name %>'
-});
+<p>
+  <%= f.label :profile_image_url %>:
+  <%= f.text_field :profile_image_url %>
+</p>
