@@ -28,7 +28,6 @@ class Location < ApplicationRecord
     url_name = name.split(' ').join('+')
     request_url = "https://maps.googleapis.com/maps/api/geocode/json?address=#{url_name}&key=#{@@APIKEY}"
     # request_url = "https://maps.googleapis.com/maps/api/geocode/json?address="
-    byebug
     if !uri?(request_url)
       self.errors[:base] << "Couldn't find location"
       puts "Couldn't find location - not a URL"
