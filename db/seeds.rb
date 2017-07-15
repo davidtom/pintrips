@@ -32,6 +32,11 @@ def random_user_with_events
   @users_with_events[rand(0...@users_with_events.count)]
 end
 
+def random_user_with_trips_or_events
+  pool = @users_with_events + @users_with_trips
+  pool[rand(0...pool.count)]
+end
+
 def random_user_trip(user)
   return nil if user.trips.empty?
   user.trips[rand(0...user.trips.count)]
@@ -141,6 +146,7 @@ end
 puts ""
 
 # Events are not created with a trip.  Assign them to random trips.
+puts "Assigning events to trips..."
 Event.all.each do |event|
   event.trip = random_user_trip(event.user)
   event.save
@@ -151,14 +157,69 @@ puts "Assigned all events to trips"
 @users_with_trips = User.select { |u| !u.trips.empty? }
 @users_with_events = User.select { |u| !u.events.empty? }
 
+puts "Seeding images..."
+
+image_urls = {
+  bangkok: "http://lghttp.60358.nexcesscdn.net/8046264/images/page/-/100rc/img/cities/cities-bangkok_optimized.jpg",
+  shanghai: "https://www.omm.com/~/media/images/site/locations/shanghai_780x520.ashx",
+  beijing: "http://img.timeoutbeijing.com/201702/20170214122812289.jpg",
+  delhi: "https://www.fssaifoodlicense.com/wp-content/uploads/2016/05/delhi2-1.jpg",
+  lagos: "http://tortoisepath.com/blog/wp-content/uploads/sites/5/2016/05/lagos-city-nigeria-image.jpg",
+  dhaka: "http://www.theindependentbd.com/assets/news_images/Decentralising-Dhaka.jpg",
+  tokyo: "http://static.asiawebdirect.com/m/phuket/portals/japan-hotels-ws/homepage/tokyo/nightlife/pagePropertiesImage/tokyo-nightlife.jpg",
+  cairo: "http://images.kuoni.co.uk/73/mena-house-38484241-1477473283-ImageGalleryLightboxLarge.jpg",
+  new_york: "https://www.gentlegiant.com/wp-content/uploads/2015/06/New-York.jpg",
+  los_angeles: "http://usa.sae.edu/assets/Campuses/Los-Angeles/2015/Los_Angeles_city_view.jpg",
+  chicago: "http://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1446655168/chicago-header-dg1115.jpg?itok=MqZFOaTi",
+  new_orleans: "https://premiumparking-api.s3.amazonaws.com/market/NEW%20ORLEANS%2C%20LA.jpg",
+  san_francisco: "http://www.sftravel.com/sites/sftraveldev.prod.acquia-sites.com/files/SanFrancisco_0.jpg",
+  kearney: "https://media-cdn.tripadvisor.com/media/photo-s/01/04/30/d9/the-grand-archway-at.jpg",
+  guam: "https://media-cdn.tripadvisor.com/media/photo-s/01/28/d3/32/guam.jpg",
+  london: "https://media.timeout.com/images/103042848/image.jpg",
+  dublin: "http://monipag.com/kevin-paquier/wp-content/uploads/sites/3558/2017/03/dublin_full_destination.jpg",
+  paris: "http://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/France/Paris/paris-attractions-xlarge.jpg",
+  frankfurt: "https://www.hotel-scala-frankfurt.de/files/Fotolia_60916895_XXL_1.jpg",
+  berlin: "http://www.telegraph.co.uk/content/dam/Travel/Destinations/Europe/Germany/Berlin/Berlin-overview-cityscape-xlarge.jpg",
+  hong_kong: "http://magic.wizards.com/sites/mtg/files/images/featured/GP_HongKong.jpg",
+  rio_de_janiero: "http://www.getsready.com/wp-content/uploads/2016/08/Rio-de-Janeiro-an-amazing-part-in-brazil.jpg",
+  santiago: "https://static.independent.co.uk/s3fs-public/thumbnails/image/2016/12/20/17/santiago031-.jpg",
+  dubai: "http://images.kuoni.co.uk/73/dubai-37075265-1494255242-ImageGalleryLightboxLarge.jpg",
+  toronto: "http://images.kuoni.co.uk/73/dubai-37075265-1494255242-ImageGalleryLightboxLarge.jpg",
+  yellowknife: "http://www.nwthumanrights.ca/cashra2007/graphics/yk.jpg",
+  las_vegas: "https://vegasgirlsnightout.com/wp-content/uploads/2016/01/vegas-burj-al-arab.jpg",
+  boise: "http://inception-app-prod.s3.amazonaws.com/MzU5NTI2MDgtY2RkYi00OWZiLTg2ZGYtZDk5MTVhZGI0YmQ3/content/2017/05/Boise%20ID-2.jpg",
+  detroit: "https://s3.amazonaws.com/handup-static/img/detroit/detroit-social.jpg"
+
+}
+10.times do
+  image_urls.each do |name, url|
+    img = Image.create(title: name, url: url, caption: "my awesome picture of #{name.to_s.capitalize}", user: random_user_with_trips_or_events)
+    print "Created image for #{name}\r            "
+    $stdout.flush
+  end
+end
+puts ""
+puts "Created #{image_urls.keys.count * 10} images"
+
+print "Assigning images..."
+
+Image.all.each do |img|
+  if !img.user.trips.empty?
+    img.trip = random_user_trip(img.user)
+    img.featured = true if img.trip.images.empty?
+    img.save
+  elsif !img.user.events.empty?
+    img.event = random_user_event(img.user)
+    img.featured = true if img.event.images.empty?
+    img.save
+  end
+  byebug if img.errors.any?
+end
+
+puts "done"
 
 
 
-#
-# Trip.all.each do |trip|
-#   us = trip.user
-#   us.trips << trip
-# end
 
 150.times do |i|
   user1 = random_user_with_events
