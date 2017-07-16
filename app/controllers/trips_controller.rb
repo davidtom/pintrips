@@ -20,7 +20,7 @@ class TripsController < ApplicationController
     end
     #Set start date and end date dynamically based on events
     byebug
-
+  
     trip.start_date = trip.events.order(:date).first.date
     trip.end_date = trip.events.order(:date).last.date
     if trip.save
