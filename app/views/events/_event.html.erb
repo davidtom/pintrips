@@ -10,7 +10,11 @@
   <p><%= link_to "Add event photo", new_event_image_path(event.id) %></p>
   <% end %>
   <p><%= event.review %></p>
-  <p><%= event.rating %><%= " star".pluralize(event.rating) %></p>
+  <% if event.rating %>
+    <p><%= event.rating %><%= " star".pluralize(event.rating) %></p>
+  <% else %>
+    <p> No rating </p>
+  <% end %>
   <p><%= event.type.name %></p>
   <p><%= event.date %></p>
   <% if event.user == current_user %>

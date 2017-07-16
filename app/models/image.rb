@@ -15,6 +15,8 @@ class Image < ApplicationRecord
   belongs_to :trip, optional: true
   belongs_to :user
 
+  validates :url, presence: true
+
 
   def make_all_other_images_not_featured
     if self.event_id

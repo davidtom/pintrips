@@ -3,7 +3,14 @@
   <div class="col-md-8">
     <%= render partial: 'map', locals: {user: @user} %>
   </br>
-    <center><h3> Trips </h3></center>
+    <center><h3><%= @user.trips_header %></h3></center>
+    <% if @user.trips.empty? %>
+      <% if @user == current_user %>
+        <center><p> No trips yet.  <%= link_to "Create a trip", new_trip_path %> and tell everyone about your adventure!</p></center>
+        <% else %>
+        <center><p><%= @user.user_name %> hasn't created any trips yet.</p></center>
+      <% end %>
+    <% end %>
 
     <% @trips.each do |trip| %>
       <div class="jumbotron">
@@ -11,11 +18,19 @@
       </div>
     <% end %>
     <% if current_user && current_user == @user %>
-      <p><%= link_to "Create new trip", new_trip_path %></p>
+      <p><%= link_to "Create new trip", new_trip_path unless @user.trips.empty? %></p>
     <% end %>
     <hr>
 
-    <center><h3> Events: </h3></center>
+    <center><h3><%= @user.events_header %></h3></center>
+
+    <% if @user.events.empty? && @user.trips.empty? %>
+      <% if @user == current_user %>
+        <center><p> No events yet.  <%= link_to "Create an event", new_event_path %> and tell everyone about your adventure!</p></center>
+        <% else %>
+        <center><p><%= @user.user_name %> hasn't created any events yet.</p></center>
+      <% end %>
+    <% end %>
 
     <% @orphan_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
@@ -28,16 +43,28 @@
     <hr>
 
     <!-- WISH LIST SECTION -->
-    <center><h2> Wish List: </h2></center>
+    <center><h2><%= @user.wish_list_header %></h2></center>
+
+    <% if @user.wish_list_trips.empty? && @user.wish_list_events.empty? %>
+      <% if @user == current_user %>
+        <center><p> You haven't added any trips or events to your wishlist.  <%= link_to "Browse trips", trips_path %> or <%= link_to "events,", events_path %> and find one that inspires you! </p></center>
+        <% else %>
+        <center><p>No trips or events on <%= @user.user_name %>'s wishlist.</p></center>
+      <% end %>
+    <% end %>
+
+
 
     <!-- Trips Wish List -->
-    <center><h3> Trips: </h3></center>
+    <center><h3><%= @user.wish_list_trips_header %></h3></center>
+
+
     <% @wish_list_trips.each do |trip| %>
       <%= render partial: "/trips/trip", locals: {trip: trip} %>
     <% end %>
 
     <!--  Events Wish List -->
-    <center><h3> Events: </h3></center>
+    <center><h3><%= @user.wish_list_events_header %></h3></center>
     <% @wish_list_events.each do |event| %>
       <%= render partial: "/events/event", locals: {event: event} %>
     <% end %>

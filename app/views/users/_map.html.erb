@@ -18,17 +18,30 @@
       center: {lat: 40.705255, lng: -74.013973},
     });
     <% user.completed_events.each do |event| %>
+
       var myLatLng = {lat: <%= event.location.lat %>, lng: <%= event.location.long %>};
-      var marker = new google.maps.Marker({
+      var contentString = '<%= event.title %>'+
+                          '<br><%= event.location.name %>'
+
+      var infowindow<%= event.location.id %> = new google.maps.InfoWindow({
+          content: contentString,
+          position: myLatLng
+        });
+
+      var marker<%= event.location.id %> = new google.maps.Marker({
         position: myLatLng,
         map: map,
-        title: 'Hello World!'
+        title: "<%= event.title %>"
       });
+
+        marker<%= event.location.id %>.addListener('click', function() {
+          infowindow<%= event.location.id %>.open(map, marker<%= event.location.id %>);
+        });
+        <% puts event.location.id %>
+
     <% end %>
   }
 </script>
-
-
 
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBsxlU4Q04vn0Qnf2gTGhFBFsBxo04xZ-w&callback=initMap"
 async defer></script>

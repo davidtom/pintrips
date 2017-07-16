@@ -42,6 +42,39 @@ class User < ApplicationRecord
   #   self == object
   # end
 
+  def wish_list_header
+    "Wishlist:"
+  end
+
+  def trips_header
+      "Trips"
+  end
+
+  def events_header
+    case self.orphan_events.count
+    when 0 then ""
+    else
+      "Events"
+    end
+  end
+
+  def wish_list_trips_header
+    case self.wish_list_trips.count
+    when 0 then ""
+    else
+      "Trips"
+    end
+  end
+
+  def wish_list_events_header
+    case self.wish_list_events.count
+    when 0 then ""
+    else
+      "Events"
+    end
+  end
+
+
   def image_params
 
   end
@@ -88,4 +121,7 @@ class User < ApplicationRecord
   def profile_image_url=(url)
     self.profile_image = Image.new(url: url)
   end
+
+
+
 end
