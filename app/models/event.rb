@@ -24,7 +24,7 @@ class Event < ApplicationRecord
   has_many :images, :dependent => :destroy
   belongs_to :trip, optional: true
   #if not on wish list, needs 10 chars in review and a rating
-  validate :wish_list_or_not
+  # validate :wish_list_or_not
   # validate :valid_location
   validates :location_id, presence: true
 

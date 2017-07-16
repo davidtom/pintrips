@@ -53,23 +53,26 @@ class TripsController < ApplicationController
   end
 
   def update
-    @trip.events = []
+    @trip.events.clear
     if @trip.update(trip_params)
-      if params[:image]
+      # TODO below needs to change - there are still params[:image] even with no image
+      if params[:image][:url].length > 0
         new_image = Image.new(image_params)
         new_image.trip = @trip
         new_image.user = current_user
         new_image.save
+        flash[:success]= "Image successfully updated."
       end
-      flash[:success]= "Trip successfully updated."
-
-      # redirect_to session.delete(:return_to)
-      redirect_to trip_path(@trip)
+      if !trip_params[:on_wish_list] && @trip.on_wish_list
+        @trip.events.update(on_wish_list:false)
+        update_and_remove_from_wish_list(@trip)
+        flash[:success] = "Trip successfully updated."
+      end
     else
-      # flash[:danger]= "Unable to update trip."
       flash[:danger]= @trip.errors.full_messages[0]
       redirect_to request.referer
     end
+    redirect_to trip_path(@trip)
   end
 
   def copy
@@ -120,6 +123,14 @@ class TripsController < ApplicationController
 
   def user_match?
     current_user && @trip.user == current_user
+  end
+
+  def update_and_remove_from_wish_list(trip)
+    if trip.update(on_wish_list: false)
+      flash[:success] = "Trip successfully removed from wishlist."
+    else
+      flash[:danger] = event.errors.full_messages[0]
+    end
   end
 
 end

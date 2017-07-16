@@ -17,9 +17,15 @@
   <% end %>
   <% if trip.user == current_user %>
     <p><%= link_to "Add trip photo", new_trip_image_path(trip.id) %></p>
-    <span><%= link_to "Edit trip", edit_trip_path(trip)%></span>
-    <span> | </span>
-    <span><%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Trip and all associated events?' } %></span>
+    <!--  if trip not on wish list show edit and delete links -->
+    <% if !trip.on_wish_list %>
+      <span><%= link_to "Edit trip", edit_trip_path(trip)%></span>
+      <span> | </span>
+      <span><%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Trip and all associated events?' } %></span>
+    <!--  if trip on wish list show edit or mark complete and delete links -->
+    <% else %>
+      <p><%= link_to "Edit or Mark Complete", edit_trip_path(trip) %> | <%= link_to "Delete", trip_path(trip), method: :delete, data: { confirm: 'Delete Event?' } %></p>
+    <% end %>
   <% else %>
     <p><%= link_to "Add to Wishlist", copy_trip_path(trip.id), method: :post %></p>
   <% end %>

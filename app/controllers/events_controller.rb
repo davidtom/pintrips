@@ -21,7 +21,7 @@ class EventsController < ApplicationController
       new_image = Image.new(image_params)
       new_image.event = @event
       new_image.user = current_user
-      new_image.featured = true 
+      new_image.featured = true
       new_image.save
     end
     if @event.save
@@ -69,7 +69,7 @@ class EventsController < ApplicationController
         new_image.user = current_user
         new_image.save
       end
-      if !event_params[:on_wish_list] && @event.on_wish_list == true
+      if !event_params[:on_wish_list] && @event.on_wish_list
         update_and_remove_from_wish_list(@event)
       end
     else
