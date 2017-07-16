@@ -93,7 +93,7 @@ class TripsController < ApplicationController
     else
       @trip.destroy
       flash[:success] = "Trip successfully deleted."
-      redirect_to request.referer
+      redirect_to user_path(current_user)
     end
   end
 
