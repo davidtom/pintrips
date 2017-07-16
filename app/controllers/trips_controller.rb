@@ -18,6 +18,11 @@ class TripsController < ApplicationController
       new_image.featured = true
       new_image.save
     end
+    #Set start date and end date dynamically based on events
+    byebug
+
+    trip.start_date = trip.events.order(:date).first.date
+    trip.end_date = trip.events.order(:date).last.date
     if trip.save
       flash[:success] = "Trip successfully created!"
       redirect_to trip_path(trip)
