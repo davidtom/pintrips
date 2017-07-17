@@ -16,6 +16,7 @@ Rails.application.routes.draw do
   delete 'logout', to: 'sessions#destroy'
 
   post 'events/:id', to: "events#copy", as: "copy_event"
+  # post 'events/:id/edit', to: "events#update"
   # get '/events/images/new', to: 'images#new', as: "new_event_image"
   get '/events/:id/images/new', to: 'images#new', as: "new_event_image"
 
