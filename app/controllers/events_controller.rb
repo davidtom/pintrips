@@ -63,7 +63,6 @@ class EventsController < ApplicationController
   def update
     if @event.update(event_params)
       flash[:success] = "Event successfully updated."
-      byebug
       if params[:image]
         new_image = Image.new(image_params)
         new_image.event = @event
