@@ -7,11 +7,19 @@
 
 <script type="text/javascript">
 
-// let new_comment_link = document.querySelector('#new_comment_link')
-document.querySelector('#new_comment_link').addEventListener('click', function(event) {
+// Store the comment form html, then hide the form
+
+
+commentFormStore = $('.new_comment').html()
+$('.new_comment').html("")
+
+
+debugger;
+$('#new_comment_link').on('click', commentFormStore, function(event) {
   event.preventDefault();
-  debugger;
-  document.querySelector('#new_comment_link').style = "";
+  $('.new_comment').html(event.data) // Re-create the form
+  $('.new_comment').style.display = ""  // Show the form
+
 }, true)
 
 </script>
